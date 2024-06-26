@@ -1,0 +1,66 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://yal3wbivvjqh"]
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_p67li"]
+
+[sub_resource type="VisualShaderNodeTexture3D" id="VisualShaderNodeTexture3D_kxvoq"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
+texture = SubResource("NoiseTexture3D_p67li")
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_sukul"]
+input_name = "sky_coords"
+
+[sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_gbioo"]
+default_input_values = [0, 0.0, 1, 0.77, 2, 1e-05, 3, Vector3(0, 0, 0), 4, Vector3(0, 0, 0), 5, Vector3(0, 0, 0)]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_e2fyi"]
+default_input_values = [0, 0.0, 1, 0.7]
+operator = 1
+
+[resource]
+code = "shader_type sky;
+render_mode use_quarter_res_pass, disable_fog;
+
+uniform sampler3D tex3d_sky_2;
+
+
+
+void sky() {
+// Input:3
+	vec2 n_out3p0 = SKY_COORDS;
+
+
+	vec4 n_out2p0;
+// Texture3D:2
+	n_out2p0 = texture(tex3d_sky_2, vec3(n_out3p0, 0.0));
+	float n_out2p1 = n_out2p0.r;
+
+
+// FloatOp:5
+	float n_in5p1 = 0.70000;
+	float n_out5p0 = n_out2p1 - n_in5p1;
+
+
+// Output:0
+	COLOR = vec3(n_out5p0);
+
+
+}
+"
+graph_offset = Vector2(26.2103, -37.1425)
+mode = 3
+flags/use_half_res_pass = false
+flags/use_quarter_res_pass = true
+flags/disable_fog = true
+flags/use_debanding = false
+nodes/fragment/0/position = Vector2(520, 80)
+nodes/sky/0/position = Vector2(1060, 0)
+nodes/sky/2/node = SubResource("VisualShaderNodeTexture3D_kxvoq")
+nodes/sky/2/position = Vector2(360, 0)
+nodes/sky/3/node = SubResource("VisualShaderNodeInput_sukul")
+nodes/sky/3/position = Vector2(60, 60)
+nodes/sky/4/node = SubResource("VisualShaderNodeIf_gbioo")
+nodes/sky/4/position = Vector2(820, 260)
+nodes/sky/5/node = SubResource("VisualShaderNodeFloatOp_e2fyi")
+nodes/sky/5/position = Vector2(740, 0)
+nodes/sky/connections = PackedInt32Array(3, 0, 2, 0, 2, 1, 5, 0, 5, 0, 0, 0)
