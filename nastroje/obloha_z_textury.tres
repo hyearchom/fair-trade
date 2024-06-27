@@ -1,0 +1,40 @@
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://chc55xvqqokph"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_o6xp7"]
+input_name = "sky_coords"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_nid5w"]
+
+[resource]
+code = "shader_type sky;
+uniform sampler2D tex_sky_4;
+
+
+
+void sky() {
+// Input:3
+	vec2 n_out3p0 = SKY_COORDS;
+
+
+// Texture2D:4
+	vec4 n_out4p0 = texture(tex_sky_4, n_out3p0);
+
+
+// Output:0
+	COLOR = vec3(n_out4p0.xyz);
+
+
+}
+"
+mode = 3
+flags/use_half_res_pass = false
+flags/use_quarter_res_pass = false
+flags/disable_fog = false
+flags/use_debanding = false
+nodes/fragment/0/position = Vector2(600, 60)
+nodes/sky/0/position = Vector2(640, 100)
+nodes/sky/3/node = SubResource("VisualShaderNodeInput_o6xp7")
+nodes/sky/3/position = Vector2(20, 120)
+nodes/sky/4/node = SubResource("VisualShaderNodeTexture_nid5w")
+nodes/sky/4/position = Vector2(397, 115)
+nodes/sky/connections = PackedInt32Array(4, 0, 0, 0, 3, 0, 4, 0)
