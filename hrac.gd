@@ -19,9 +19,6 @@ func _physics_process(delta):
 	#var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var direction = ($Horizontala/Vertikala.global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if input_dir:
-		#velocity.x = direction.x * RYCHLOST
-		#velocity.y = direction.y * RYCHLOST
-		#velocity.z = direction.z * RYCHLOST
 		velocity = direction * RYCHLOST
 		zamek_menevrovani = false
 		$pruzkumnik.transform.basis = Basis.looking_at(velocity)
@@ -33,14 +30,13 @@ func _physics_process(delta):
 		zamek_menevrovani = true
 
 	move_and_slide()
-	print(velocity)
 
 func _unhandled_input(event):
 	if not zamek_menevrovani:
 		if event is InputEventMouseMotion:
 			zamirit_pohled(event)
-		#elif event is InputEventMouseButton:
-			#_zvolit_akci(event)
+	if event is InputEvent:
+		_zvolit_akci(event)
 
 func zamirit_pohled(event):
 	var sirka = -event.relative.x *CITLIVOST_MYSI
@@ -53,10 +49,15 @@ func zamirit_pohled(event):
 	#$pruzkumnik.rotate_x(clampf(vyska, -mez, mez))
 	#Vertikala.rotation.x = clampf(Vertikala.rotation.x, -deg_to_rad(ZORNE_POLE), deg_to_rad(ZORNE_POLE))
 
-#func _zvolit_akci(event):
-	#var terc = $Horizontala/Vertikala/Dotek.get_collider()
-	#if terc:
-		#if event.is_action_pressed("retez"):
-			#$Akce.spoustat(terc)
-		#elif event.is_action_pressed("kop"):
-			#$Akce.vykopnout(terc)
+func _zvolit_akci(event):
+	if event.is_action_pressed('oddalit'):
+		_posunout_pohled(-1)
+	elif event.is_action_pressed('priblizit'):
+		_posunout_pohled(1)
+
+func _posunout_pohled(smer):
+	const RYCHLOST_ODDALENI = 0.5
+	Vertikala.position.z += smer *RYCHLOST_ODDALENI
+	#omezit limitní hodnoty
+	Vertikala.position.z = clampf(Vertikala.position.z, 3, 15)
+	
