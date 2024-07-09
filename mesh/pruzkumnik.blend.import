@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://do6eq7kix1r0d"
-path="res://.godot/imported/pruzkumnik.blend-7b1c10dcdf7bbada9c2b20dbb6013af8.scn"
+path="res://.godot/imported/pruzkumnik.blend-db06ee7200a1ae3d7e50a1b8304bf9d0.scn"
 
 [deps]
 
-source_file="res://pruzkumnik.blend"
-dest_files=["res://.godot/imported/pruzkumnik.blend-7b1c10dcdf7bbada9c2b20dbb6013af8.scn"]
+source_file="res://mesh/pruzkumnik.blend"
+dest_files=["res://.godot/imported/pruzkumnik.blend-db06ee7200a1ae3d7e50a1b8304bf9d0.scn"]
 
 [params]
 
