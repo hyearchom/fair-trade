@@ -1,9 +1,12 @@
 extends CharacterBody3D
 
-const MAX_VYKON = 5.0
-const ZRYCHLENI = 0.1
+const MAX_VYKON = 10.0
+const ZRYCHLENI = 0.2
 
 var vykon: float
+
+func _ready():
+	add_to_group('hrac')
 
 func _physics_process(_delta):
 	if Input.is_action_pressed("dopredu"):
@@ -19,7 +22,11 @@ func _physics_process(_delta):
 		vykon += ZRYCHLENI
 	elif Input.is_action_pressed("zpomalit"):
 		vykon -= ZRYCHLENI
+	else:
+		var zpomaleni = vykon *0.05
+		vykon -= zpomaleni 
 	vykon = clampf(vykon, -MAX_VYKON, MAX_VYKON)
+
 	
 	#if not Input.is_anything_pressed():
 		#_navratit_pohled(3)
@@ -28,14 +35,14 @@ func _physics_process(_delta):
 	#var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if vykon:
 		velocity = -transform.basis.z * vykon
-	else:
-		velocity.x = move_toward(velocity.x, 0, vykon)
-		velocity.y = move_toward(velocity.y, 0, vykon)
-		velocity.z = move_toward(velocity.z, 0, vykon)
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, vykon)
+		#velocity.y = move_toward(velocity.y, 0, vykon)
+		#velocity.z = move_toward(velocity.z, 0, vykon)
 
 	var kolize = move_and_slide()
 	if kolize:
-		print(kolize)
+		print('Naraz!')
 
 
 func _otocit_lod(osa, smer):
