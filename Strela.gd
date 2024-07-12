@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-const MAX_VYKON = 0.05
+const MAX_VYKON = 0.2
 
 var cil: Vector3
 
