@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://35ddx4oy5mo1"]
+[gd_scene load_steps=58 format=3 uid="uid://35ddx4oy5mo1"]
 
 [ext_resource type="Texture2D" uid="uid://ch06ejtbxubkr" path="res://panorama.png" id="1_juhdg"]
 [ext_resource type="Script" path="res://Hrac.gd" id="2_ww1uy"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://Info.gd" id="5_gl8m3"]
 [ext_resource type="Material" uid="uid://b8lg34p7leebm" path="res://mesh/zeleny_kov.tres" id="6_4lf8p"]
 [ext_resource type="Script" path="res://Souper.gd" id="7_mdfhv"]
+[ext_resource type="Shader" uid="uid://cdqw8phjl17h0" path="res://mesh/povrch_planety.tres" id="8_wm4yh"]
+[ext_resource type="Script" path="res://Planeta.gd" id="10_7vefy"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmn5u"]
 panorama = ExtResource("1_juhdg")
@@ -255,6 +257,81 @@ material = SubResource("StandardMaterial3D_evdrg")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pccos"]
 
+[sub_resource type="Gradient" id="Gradient_dgmbg"]
+offsets = PackedFloat32Array(0.129213, 0.432584, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.0393258, 0.0393258, 0.0393258, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c7xef"]
+noise_type = 2
+seed = 5
+frequency = 0.0135
+fractal_weighted_strength = 0.5
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 2
+domain_warp_amplitude = 20.0
+domain_warp_frequency = 0.03
+domain_warp_fractal_type = 2
+domain_warp_fractal_octaves = 2
+domain_warp_fractal_gain = 0.25
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_286y1"]
+seamless = true
+seamless_blend_skirt = 0.5
+color_ramp = SubResource("Gradient_dgmbg")
+noise = SubResource("FastNoiseLite_c7xef")
+
+[sub_resource type="Gradient" id="Gradient_fpqgf"]
+offsets = PackedFloat32Array(0, 0.595506)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0xg2w"]
+gradient = SubResource("Gradient_fpqgf")
+
+[sub_resource type="Gradient" id="Gradient_dtlf0"]
+offsets = PackedFloat32Array(0.567416, 1)
+colors = PackedColorArray(0.0431373, 0.0431373, 0.0431373, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tyhpd"]
+noise_type = 2
+seed = 1
+frequency = 0.0084
+fractal_octaves = 1
+fractal_weighted_strength = 1.0
+cellular_return_type = 6
+domain_warp_enabled = true
+domain_warp_type = 2
+domain_warp_amplitude = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7j13a"]
+invert = true
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.5
+normalize = false
+color_ramp = SubResource("Gradient_dtlf0")
+noise = SubResource("FastNoiseLite_tyhpd")
+
+[sub_resource type="Gradient" id="Gradient_rf5u8"]
+offsets = PackedFloat32Array(0.44382, 0.522472, 0.752809, 0.955056)
+colors = PackedColorArray(0, 0.423529, 0.576471, 1, 0.257855, 0.729767, 0.39791, 1, 0.131148, 0.68363, 0.295114, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ylp5e"]
+gradient = SubResource("Gradient_rf5u8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i0rhh"]
+render_priority = 0
+shader = ExtResource("8_wm4yh")
+shader_parameter/tex_frg_2 = SubResource("NoiseTexture2D_286y1")
+shader_parameter/tex_frg_8 = SubResource("GradientTexture2D_ylp5e")
+shader_parameter/tex_frg_5 = SubResource("NoiseTexture2D_7j13a")
+shader_parameter/tex_frg_3 = SubResource("GradientTexture2D_0xg2w")
+
+[sub_resource type="SphereMesh" id="SphereMesh_2sql2"]
+material = SubResource("ShaderMaterial_i0rhh")
+radius = 25.0
+height = 50.0
+
 [node name="Hra" type="Node"]
 
 [node name="Vesmir" type="Node3D" parent="."]
@@ -453,8 +530,6 @@ shape = SubResource("ConcavePolygonShape3D_021dn")
 
 [node name="Slunecni_svit" type="DirectionalLight3D" parent="Vesmir"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 29, -33)
-light_color = Color(1, 0.553308, 0.841483, 1)
-light_energy = 0.1
 
 [node name="Souperi" type="Node3D" parent="Vesmir"]
 
@@ -470,6 +545,17 @@ mesh = SubResource("PrismMesh_m5gcj")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Vesmir/Souperi/Souper"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.000638962)
 shape = SubResource("BoxShape3D_pccos")
+
+[node name="Planeta" type="MeshInstance3D" parent="Vesmir"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.755, 0, -109.415)
+mesh = SubResource("SphereMesh_2sql2")
+script = ExtResource("10_7vefy")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Vesmir/Planeta"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.4407, 34.0378, 3.1534)
+visible = false
+light_energy = 30.0
+omni_range = 50.14
 
 [node name="Info" type="CanvasLayer" parent="."]
 script = ExtResource("5_gl8m3")
