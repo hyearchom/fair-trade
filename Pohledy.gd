@@ -9,7 +9,8 @@ const CITLIVOST_MYSI = 0.001
 @onready var SEZNAM = [
 	$Oddeleni/Krk/Hlava,
 	$Celo,
-	$Busta
+	$Busta,
+	$Temeno,
 ]
 
 func _ready():
