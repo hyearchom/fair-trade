@@ -4,6 +4,7 @@ const MAX_VYKON = 10.0
 const ZRYCHLENI = 0.2
 
 var vykon: float
+var zmena_rotace: bool
 
 func _ready():
 	add_to_group('hrac')
@@ -28,8 +29,10 @@ func _physics_process(_delta):
 	vykon = clampf(vykon, -MAX_VYKON, MAX_VYKON)
 
 	
-	#if not Input.is_anything_pressed():
-		#_navratit_pohled(3)
+	if not Input.is_anything_pressed():
+		if zmena_rotace:
+			zmena_rotace = false
+			$Pohledy.navratit_pohled(2)
 	
 	#var input_dir = Input.get_vector("doleva", "doprava", "dopredu", "dozadu")
 	#var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -48,7 +51,7 @@ func _physics_process(_delta):
 func _otocit_lod(osa, smer):
 	var VELIKOST_OTACENI = 0.02
 	rotate_object_local(osa, smer *VELIKOST_OTACENI)
-
+	zmena_rotace = true
 
 #func _otocit_lod_za_pohledem():
 	#var otoceni_lodi = create_tween() \
