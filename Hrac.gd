@@ -6,10 +6,10 @@ const ZRYCHLENI = 0.2
 var vykon: float
 var zmena_rotace: bool
 
-func _ready():
+func _ready() -> void:
 	add_to_group('hrac')
 
-func _physics_process(_delta):
+func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("dopredu"):
 		_otocit_lod(Vector3.LEFT, 1)
 	if Input.is_action_pressed("dozadu"):
@@ -48,8 +48,8 @@ func _physics_process(_delta):
 		print('Naraz!')
 
 
-func _otocit_lod(osa, smer):
-	var VELIKOST_OTACENI = 0.02
+func _otocit_lod(osa, smer) -> void:
+	var VELIKOST_OTACENI := 0.02
 	rotate_object_local(osa, smer *VELIKOST_OTACENI)
 	zmena_rotace = true
 

@@ -4,10 +4,10 @@ const MAX_VYKON = 0.2
 
 var cil: Vector3
 
-func _ready():
+func _ready() -> void:
 	add_to_group('souperi')
 
-func _physics_process(_delta):
+func _physics_process(_delta: float) -> void:
 	cil = _najit_hrace()
 	var smer = (cil -global_position).normalized()
 	
@@ -20,5 +20,5 @@ func _physics_process(_delta):
 			print('Zničen!')
 
 func _najit_hrace() -> Vector3:
-	var hrac = get_tree().get_first_node_in_group('hrac')
+	var hrac := get_tree().get_first_node_in_group('hrac')
 	return hrac.global_position

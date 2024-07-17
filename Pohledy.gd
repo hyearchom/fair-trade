@@ -3,10 +3,10 @@ extends Node3D
 const CITLIVOST_MYSI = 0.001
 
 @export var Hrac: CharacterBody3D
-@onready var Hlava = $Oddeleni/Krk/Hlava
-@onready var Krk = $Oddeleni/Krk
+@onready var Hlava := $Oddeleni/Krk/Hlava
+@onready var Krk := $Oddeleni/Krk
 
-@onready var SEZNAM = [
+@onready var SEZNAM := [
 	$Oddeleni/Krk/Hlava,
 	$Celo,
 	$Busta,
@@ -16,7 +16,7 @@ const CITLIVOST_MYSI = 0.001
 var otoceni_horizontaly: Tween
 var otoceni_vertikaly: Tween
 
-func _ready():
+func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 #func _process(_delta):
@@ -28,7 +28,7 @@ func _unhandled_input(event):
 	_zvolit_akci(event)
 
 
-func _zamirit_pohled(event):
+func _zamirit_pohled(event) -> void:
 	var sirka = -event.relative.x *CITLIVOST_MYSI
 	var vyska = event.relative.y *CITLIVOST_MYSI
 	var MEZ: float = 0.015
@@ -137,7 +137,7 @@ func _vypnout_soucasnou_kameru(poradi=-1) -> void:
 
 func _vratit_pozici_kamery() -> int:
 	var poradi_kamery := int(0)
-	for kamera in SEZNAM:
+	for kamera: Camera3D in SEZNAM:
 		if kamera.current:
 			return poradi_kamery
 		else:
