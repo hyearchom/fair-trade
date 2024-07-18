@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released('cela_obrazovka'):
 		var MOD = [
 			DisplayServer.WINDOW_MODE_WINDOWED,

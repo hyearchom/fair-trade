@@ -1,0 +1,80 @@
+[gd_scene load_steps=20 format=3 uid="uid://dbqkbcpsl6e3v"]
+
+[ext_resource type="Script" path="res://mlhovina.gd" id="1_d85we"]
+[ext_resource type="PackedScene" uid="uid://42ak0gcwxq60" path="res://mesh/asteroidy/maly_odstipnuty.tscn" id="2_2tkqj"]
+[ext_resource type="PackedScene" uid="uid://di76nunf1dynu" path="res://mesh/asteroidy/maly_rohaty.tscn" id="3_rekhu"]
+[ext_resource type="PackedScene" uid="uid://dv26iyeqicmli" path="res://mesh/asteroidy/maly_slabe_deformovany.tscn" id="4_u2jhw"]
+[ext_resource type="PackedScene" uid="uid://ce3ffk7wa1t7p" path="res://mesh/asteroidy/maly_stredne_deformovany.tscn" id="5_88yu5"]
+[ext_resource type="PackedScene" uid="uid://chnb7k6xy425f" path="res://mesh/asteroidy/maly_velky_zasah.tscn" id="6_egbk5"]
+[ext_resource type="PackedScene" uid="uid://lkiqfr2eqt7w" path="res://mesh/asteroidy/velky_dvojcata.tscn" id="7_b6l8h"]
+[ext_resource type="PackedScene" uid="uid://cebgw58qd0v2u" path="res://mesh/asteroidy/velky_nejmensi.tscn" id="8_wl5mi"]
+[ext_resource type="PackedScene" uid="uid://bqdf23qcmarms" path="res://mesh/asteroidy/velky_silne_deformovany.tscn" id="9_3wokf"]
+[ext_resource type="PackedScene" uid="uid://c1nsohn1j2ah6" path="res://mesh/asteroidy/velky_slabe_deformovany.tscn" id="10_rxl62"]
+[ext_resource type="Shader" uid="uid://c5nuqna2wkap3" path="res://mesh/mlhovina.tres" id="11_jkr0g"]
+
+[sub_resource type="Gradient" id="Gradient_pdu30"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0.396078, 0.490196, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b1clf"]
+gradient = SubResource("Gradient_pdu30")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_les4h"]
+render_priority = 0
+shader = ExtResource("11_jkr0g")
+shader_parameter/FloatParameter = 0.8
+shader_parameter/tex_frg_11 = SubResource("GradientTexture1D_b1clf")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xedgq"]
+lightmap_size_hint = Vector2i(94, 47)
+material = SubResource("ShaderMaterial_les4h")
+add_uv2 = true
+uv2_padding = 0.0
+radius = 3.0
+height = 6.0
+rings = 32
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n43tl"]
+radius = 3.0
+height = 6.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pou0f"]
+noise_type = 3
+frequency = 0.0748
+fractal_type = 2
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_kwqlr"]
+noise = SubResource("FastNoiseLite_pou0f")
+
+[sub_resource type="FogMaterial" id="FogMaterial_4gkie"]
+density = 0.2
+albedo = Color(0, 0, 0, 1)
+emission = Color(0, 0.396078, 0.490196, 1)
+edge_fade = 1.01965
+density_texture = SubResource("NoiseTexture3D_kwqlr")
+
+[node name="Mlhovina" type="Node3D"]
+script = ExtResource("1_d85we")
+HRANICE_POLE = Vector3i(1, 1, 5)
+HUSTOTA_MLHY = 0.01
+MALE = Array[PackedScene]([ExtResource("2_2tkqj"), ExtResource("3_rekhu"), ExtResource("4_u2jhw"), ExtResource("5_88yu5"), ExtResource("6_egbk5")])
+VELKE = Array[PackedScene]([ExtResource("7_b6l8h"), ExtResource("8_wl5mi"), ExtResource("9_3wokf"), ExtResource("10_rxl62")])
+
+[node name="Oblast" type="Area3D" parent="."]
+monitorable = false
+
+[node name="Podoba" type="MeshInstance3D" parent="Oblast"]
+transform = Transform3D(0.994081, 0, 0.108641, 0, 1, 0, -0.108641, 0, 0.994081, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_xedgq")
+skeleton = NodePath("../..")
+
+[node name="Hranice" type="CollisionShape3D" parent="Oblast"]
+shape = SubResource("CapsuleShape3D_n43tl")
+
+[node name="Oblak" type="FogVolume" parent="Oblast"]
+rotation_edit_mode = 2
+visible = false
+shape = 2
+material = SubResource("FogMaterial_4gkie")
+
+[connection signal="body_entered" from="Oblast" to="." method="_prekroceni" binds= [true]]
+[connection signal="body_exited" from="Oblast" to="." method="_prekroceni" binds= [false]]

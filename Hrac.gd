@@ -5,6 +5,7 @@ const ZRYCHLENI = 0.2
 
 var vykon: float
 var zmena_rotace: bool
+var tempomat: bool
 
 func _ready() -> void:
 	add_to_group('hrac')
@@ -19,10 +20,14 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("doprava"):
 		_otocit_lod(Vector3.FORWARD, 1)
 	
-	if Input.is_action_pressed("zrychlit"):
+	if Input.is_action_pressed("vpred"):
 		vykon += ZRYCHLENI
-	elif Input.is_action_pressed("zpomalit"):
+		tempomat = false
+	elif Input.is_action_pressed("vzad"):
 		vykon -= ZRYCHLENI
+		tempomat = false
+	elif tempomat:
+		vykon += ZRYCHLENI
 	else:
 		var zpomaleni = vykon *0.05
 		vykon -= zpomaleni 
@@ -34,14 +39,8 @@ func _physics_process(_delta: float) -> void:
 			zmena_rotace = false
 			$Pohledy.navratit_pohled(2)
 	
-	#var input_dir = Input.get_vector("doleva", "doprava", "dopredu", "dozadu")
-	#var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if vykon:
 		velocity = -transform.basis.z * vykon
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, vykon)
-		#velocity.y = move_toward(velocity.y, 0, vykon)
-		#velocity.z = move_toward(velocity.z, 0, vykon)
 
 	var kolize = move_and_slide()
 	if kolize:
@@ -53,17 +52,7 @@ func _otocit_lod(osa, smer) -> void:
 	rotate_object_local(osa, smer *VELIKOST_OTACENI)
 	zmena_rotace = true
 
-#func _otocit_lod_za_pohledem():
-	#var otoceni_lodi = create_tween() \
-		#.set_trans(Tween.TRANS_QUINT) \
-		#.set_ease(Tween.EASE_OUT)
-	#
-	#otoceni_lodi.tween_property(
-		#self, 'quaternion', 
-		#Quaternion(
-			#(Hlava.transform.basis *Krk.transform.basis).orthonormalized()
-			#),
-		#1)
-	
-	#await otoceni_lodi.finished
-	#_navratit_pohled()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("drzet_rychlost"):
+		tempomat = true

@@ -1,24 +1,16 @@
-[gd_scene load_steps=62 format=3 uid="uid://35ddx4oy5mo1"]
+[gd_scene load_steps=51 format=3 uid="uid://35ddx4oy5mo1"]
 
 [ext_resource type="Texture2D" uid="uid://ch06ejtbxubkr" path="res://panorama.png" id="1_juhdg"]
+[ext_resource type="Script" path="res://Atmosfera.gd" id="2_nw8sa"]
 [ext_resource type="Script" path="res://Hrac.gd" id="2_ww1uy"]
 [ext_resource type="Script" path="res://Pohledy.gd" id="3_mjj8a"]
 [ext_resource type="Script" path="res://boje.gd" id="4_fcs15"]
 [ext_resource type="Script" path="res://Info.gd" id="5_gl8m3"]
 [ext_resource type="Script" path="res://Strela.gd" id="7_mdfhv"]
-[ext_resource type="Script" path="res://Asteroidy.gd" id="8_nuq68"]
 [ext_resource type="Shader" uid="uid://cdqw8phjl17h0" path="res://mesh/povrch_planety.tres" id="8_wm4yh"]
-[ext_resource type="PackedScene" uid="uid://42ak0gcwxq60" path="res://mesh/asteroidy/maly_odstipnuty.tscn" id="9_6mtnh"]
+[ext_resource type="PackedScene" uid="uid://dbqkbcpsl6e3v" path="res://mlhovina.tscn" id="9_76cwd"]
 [ext_resource type="Script" path="res://Planeta.gd" id="10_7vefy"]
-[ext_resource type="PackedScene" uid="uid://di76nunf1dynu" path="res://mesh/asteroidy/maly_rohaty.tscn" id="10_faods"]
-[ext_resource type="PackedScene" uid="uid://dv26iyeqicmli" path="res://mesh/asteroidy/maly_slabe_deformovany.tscn" id="11_kqqn7"]
 [ext_resource type="ArrayMesh" uid="uid://cerqikjm65its" path="res://mesh/asteroidy/prach.tres" id="11_n7k2e"]
-[ext_resource type="PackedScene" uid="uid://ce3ffk7wa1t7p" path="res://mesh/asteroidy/maly_stredne_deformovany.tscn" id="12_x2x5i"]
-[ext_resource type="PackedScene" uid="uid://chnb7k6xy425f" path="res://mesh/asteroidy/maly_velky_zasah.tscn" id="13_8yd3c"]
-[ext_resource type="PackedScene" uid="uid://lkiqfr2eqt7w" path="res://mesh/asteroidy/velky_dvojcata.tscn" id="14_5312i"]
-[ext_resource type="PackedScene" uid="uid://cebgw58qd0v2u" path="res://mesh/asteroidy/velky_nejmensi.tscn" id="15_nm1rg"]
-[ext_resource type="PackedScene" uid="uid://bqdf23qcmarms" path="res://mesh/asteroidy/velky_silne_deformovany.tscn" id="16_int5e"]
-[ext_resource type="PackedScene" uid="uid://c1nsohn1j2ah6" path="res://mesh/asteroidy/velky_slabe_deformovany.tscn" id="17_466y2"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmn5u"]
 panorama = ExtResource("1_juhdg")
@@ -35,6 +27,8 @@ ambient_light_energy = 8.85
 fog_light_energy = 0.07
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+volumetric_fog_emission = Color(0, 0.396078, 0.490196, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6hh5n"]
 albedo_color = Color(0, 0, 0, 1)
@@ -310,22 +304,6 @@ material = SubResource("ShaderMaterial_i0rhh")
 radius = 25.0
 height = 50.0
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_pou0f"]
-noise_type = 3
-frequency = 0.0748
-fractal_type = 2
-
-[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_kwqlr"]
-noise = SubResource("FastNoiseLite_pou0f")
-
-[sub_resource type="FogMaterial" id="FogMaterial_4gkie"]
-density = 0.2
-albedo = Color(0, 0, 0, 1)
-emission = Color(0, 0.396078, 0.490196, 1)
-height_falloff = 0.895244
-edge_fade = 1.01965
-density_texture = SubResource("NoiseTexture3D_kwqlr")
-
 [sub_resource type="Gradient" id="Gradient_cvdma"]
 colors = PackedColorArray(0, 0.745098, 0.458824, 1, 0.647059, 0.847059, 0.235294, 1)
 
@@ -359,8 +337,9 @@ collision_mode = 2
 
 [node name="Vesmir" type="Node3D" parent="."]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Vesmir"]
+[node name="Atmosfera" type="WorldEnvironment" parent="Vesmir"]
 environment = SubResource("Environment_7cc05")
+script = ExtResource("2_nw8sa")
 
 [node name="Hrac" type="CharacterBody3D" parent="Vesmir"]
 motion_mode = 1
@@ -532,16 +511,7 @@ visible = false
 light_energy = 30.0
 omni_range = 50.14
 
-[node name="Asteroidy" type="Node3D" parent="Vesmir"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
-script = ExtResource("8_nuq68")
-MALE = Array[PackedScene]([ExtResource("9_6mtnh"), ExtResource("10_faods"), ExtResource("11_kqqn7"), ExtResource("12_x2x5i"), ExtResource("13_8yd3c")])
-VELKE = Array[PackedScene]([ExtResource("14_5312i"), ExtResource("15_nm1rg"), ExtResource("16_int5e"), ExtResource("17_466y2")])
-
-[node name="Mlha" type="FogVolume" parent="Vesmir/Asteroidy"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-shape = 2
-material = SubResource("FogMaterial_4gkie")
+[node name="Mlhovina" parent="Vesmir" instance=ExtResource("9_76cwd")]
 
 [node name="Test Castic" type="GPUParticles3D" parent="Vesmir"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12601, 0, 3.77198)
