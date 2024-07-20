@@ -65,6 +65,7 @@ input_name = "vertex"
 input_name = "normal"
 
 [resource]
+resource_local_to_scene = true
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert_wrap, specular_toon, alpha_to_coverage;
 

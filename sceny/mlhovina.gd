@@ -1,8 +1,7 @@
 extends Node3D
 
 @export_category('Pole')
-@export var PORADI: int
-#@export var NAZEV: String
+var poradi: int
 @export var HRANICE_POLE := Vector3i(1,1,5)
 
 @export_category('Mlha')
@@ -23,6 +22,7 @@ var obsazene_pole: Array
 
 
 func _ready() -> void:
+	poradi = get_index()
 	add_to_group('mlhoviny')
 	_vytvorit_pole()
 	if HUSTOTA:
@@ -61,7 +61,7 @@ func _pridat_cilovy_asteroid() -> void:
 	asteroid.position = _vybrat_souranice()
 	asteroid.get_node('Barel').show()
 	asteroid.get_node('Barel/Plast').disabled = false
-	_nastavit_dohled(asteroid.get_node('Barel'), VIDITELNOST -10)
+	_nastavit_dohled(asteroid.get_node('Barel'), VIDITELNOST -20)
 	$Asteroidy.add_child(asteroid)
 	
 
@@ -101,12 +101,13 @@ func _prekroceni(body: Node3D, vstup: bool) -> void:
 		match vstup:
 			true:
 				Signaly.mlha_zmenena.emit(HUSTOTA, BARVA)
+				Signaly.objeveni_mlhoviny.emit(poradi)
 				$Navigace.hide()
 			false:
 				Signaly.mlha_zmenena.emit(0)
 				Signaly.opusteni_mlhoviny.emit()
 
 
-func _spustit_navigaci(cilova_mlhovina: int):
-	if cilova_mlhovina == PORADI:
+func _spustit_navigaci(cilova_mlhovina: int) -> void:
+	if cilova_mlhovina == poradi:
 		$Navigace.show()

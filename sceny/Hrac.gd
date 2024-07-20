@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-const MAX_VYKON = 10.0
+const MAX_VYKON = 12.0
 const ZRYCHLENI = 0.2
 
 var vykon: float

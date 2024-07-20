@@ -8,7 +8,10 @@ func _ready() -> void:
 
 
 func _vypsat_zmenu() -> void:
-	var Hra = $'/root/Hra' 
+	var Hra: Node = $'/root/Hra' 
+	
+	# zpoždění pro přepis proměných
+	await get_tree().process_frame
 	text = 'Cargo collected: ({0}/{1})'.format(
 		[str(Hra.zbozi), str(Hra.pozadavek_zbozi)])
 	modulate.a = 1
@@ -24,5 +27,5 @@ func _postupne_zmizeni_zpravy() -> void:
 	posun_viditelnosti_zpravy.tween_interval(5)
 	
 	posun_viditelnosti_zpravy.tween_property(
-		self, 'modulate', Color(0,0,0,0), 3)
+		self, 'modulate', Color(1,1,1,0), 3)
 		

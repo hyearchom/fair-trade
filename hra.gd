@@ -7,12 +7,13 @@ var cilova_mlhovina: int = 0
 
 func _ready() -> void:
 	Signaly.zbozi_ziskano.connect(func(): zbozi += 1)
-	Signaly.opusteni_mlhoviny.connect(_postup_hrou)
+	Signaly.zbozi_ziskano.connect(_postup_hrou)
+	_navigovat_dale()
+	#Signaly.opusteni_mlhoviny.connect(_postup_hrou)
 
 
 func _postup_hrou() -> void:
-	if zbozi > cilova_mlhovina:
-		cilova_mlhovina += 1
+	cilova_mlhovina += 1
 	_navigovat_dale()
 
 
