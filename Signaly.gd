@@ -1,3 +1,5 @@
 extends Node
 
-signal zmenit_mlhu
+signal mlha_zmenena
+signal zbozi_ziskano
+signal opusteni_mlhoviny

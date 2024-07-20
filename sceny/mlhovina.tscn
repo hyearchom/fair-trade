@@ -1,0 +1,71 @@
+[gd_scene load_steps=19 format=3 uid="uid://dbqkbcpsl6e3v"]
+
+[ext_resource type="Script" path="res://sceny/mlhovina.gd" id="1_d85we"]
+[ext_resource type="PackedScene" uid="uid://42ak0gcwxq60" path="res://mesh/asteroidy/male/maly_odstipnuty.tscn" id="2_2tkqj"]
+[ext_resource type="PackedScene" uid="uid://di76nunf1dynu" path="res://mesh/asteroidy/male/maly_rohaty.tscn" id="3_rekhu"]
+[ext_resource type="PackedScene" uid="uid://dv26iyeqicmli" path="res://mesh/asteroidy/male/maly_slabe_deformovany.tscn" id="4_u2jhw"]
+[ext_resource type="PackedScene" uid="uid://ce3ffk7wa1t7p" path="res://mesh/asteroidy/male/maly_stredne_deformovany.tscn" id="5_88yu5"]
+[ext_resource type="PackedScene" uid="uid://chnb7k6xy425f" path="res://mesh/asteroidy/male/maly_velky_zasah.tscn" id="6_egbk5"]
+[ext_resource type="PackedScene" uid="uid://lkiqfr2eqt7w" path="res://mesh/asteroidy/velke/velky_dvojcata.tscn" id="7_eivtv"]
+[ext_resource type="PackedScene" uid="uid://cebgw58qd0v2u" path="res://mesh/asteroidy/velke/velky_nejmensi.tscn" id="8_watec"]
+[ext_resource type="PackedScene" uid="uid://bqdf23qcmarms" path="res://mesh/asteroidy/velke/velky_silne_deformovany.tscn" id="9_maomv"]
+[ext_resource type="PackedScene" uid="uid://c1nsohn1j2ah6" path="res://mesh/asteroidy/velke/velky_slabe_deformovany.tscn" id="10_hdg2e"]
+[ext_resource type="Shader" uid="uid://c5nuqna2wkap3" path="res://mesh/shadery/mlhovina.tres" id="11_jkr0g"]
+[ext_resource type="Material" uid="uid://cqds6wj05y3yw" path="res://mesh/shadery/signalizace_obdelnik.tres" id="12_b4g8d"]
+
+[sub_resource type="Gradient" id="Gradient_xvuk4"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0.396078, 0.490196, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_acfhd"]
+gradient = SubResource("Gradient_xvuk4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_les4h"]
+render_priority = 0
+shader = ExtResource("11_jkr0g")
+shader_parameter/FloatParameter = 0.8
+shader_parameter/tex_frg_11 = SubResource("GradientTexture1D_acfhd")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xedgq"]
+lightmap_size_hint = Vector2i(94, 47)
+material = SubResource("ShaderMaterial_les4h")
+add_uv2 = true
+uv2_padding = 0.0
+radius = 3.0
+height = 6.0
+rings = 32
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n43tl"]
+radius = 3.0
+height = 6.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5wlg0"]
+material = ExtResource("12_b4g8d")
+size = Vector2(0.095, 0.095)
+orientation = 2
+
+[node name="Mlhovina" type="Node3D"]
+script = ExtResource("1_d85we")
+VIDITELNOST = 50
+MALE = Array[PackedScene]([ExtResource("2_2tkqj"), ExtResource("3_rekhu"), ExtResource("4_u2jhw"), ExtResource("5_88yu5"), ExtResource("6_egbk5")])
+VELKE = Array[PackedScene]([ExtResource("7_eivtv"), ExtResource("8_watec"), ExtResource("9_maomv"), ExtResource("10_hdg2e")])
+
+[node name="Oblast" type="Area3D" parent="."]
+monitorable = false
+
+[node name="Podoba" type="MeshInstance3D" parent="Oblast"]
+transform = Transform3D(0.994081, 0, 0.108641, 0, 1, 0, -0.108641, 0, 0.994081, 0, 0, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_xedgq")
+skeleton = NodePath("../..")
+
+[node name="Hranice" type="CollisionShape3D" parent="Oblast"]
+shape = SubResource("CapsuleShape3D_n43tl")
+
+[node name="Asteroidy" type="Node3D" parent="."]
+
+[node name="Navigace" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("PlaneMesh_5wlg0")
+
+[connection signal="body_entered" from="Oblast" to="." method="_prekroceni" binds= [true]]
+[connection signal="body_exited" from="Oblast" to="." method="_prekroceni" binds= [false]]

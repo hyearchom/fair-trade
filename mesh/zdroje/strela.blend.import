@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://do6eq7kix1r0d"
-path="res://.godot/imported/pruzkumnik.blend-db06ee7200a1ae3d7e50a1b8304bf9d0.scn"
+uid="uid://dybe1mgjilhm3"
+path="res://.godot/imported/strela.blend-1f7e0e8d9e5c4ab8c5cab6862e94d7f3.scn"
 
 [deps]
 
-source_file="res://mesh/pruzkumnik.blend"
-dest_files=["res://.godot/imported/pruzkumnik.blend-db06ee7200a1ae3d7e50a1b8304bf9d0.scn"]
+source_file="res://mesh/zdroje/strela.blend"
+dest_files=["res://.godot/imported/strela.blend-1f7e0e8d9e5c4ab8c5cab6862e94d7f3.scn"]
 
 [params]
 

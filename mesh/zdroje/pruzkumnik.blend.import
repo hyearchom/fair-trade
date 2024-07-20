@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b4vn1dkck42rr"
-path="res://.godot/imported/asteroid_lowpoly.blend-5aac37f0bc31fe59f41c22b9f5bc3531.scn"
+uid="uid://do6eq7kix1r0d"
+path="res://.godot/imported/pruzkumnik.blend-c5aeb8a375c9d8afe16228b2f488d8e1.scn"
 
 [deps]
 
-source_file="res://mesh/asteroidy/asteroid_lowpoly.blend"
-dest_files=["res://.godot/imported/asteroid_lowpoly.blend-5aac37f0bc31fe59f41c22b9f5bc3531.scn"]
+source_file="res://mesh/zdroje/pruzkumnik.blend"
+dest_files=["res://.godot/imported/pruzkumnik.blend-c5aeb8a375c9d8afe16228b2f488d8e1.scn"]
 
 [params]
 
@@ -24,14 +24,14 @@ meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
-animation/import=false
+animation/import=true
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
 _subresources={}
 gltf/naming_version=1
-gltf/embedded_image_handling=0
+gltf/embedded_image_handling=1
 blender/nodes/visible=0
 blender/nodes/punctual_lights=true
 blender/nodes/cameras=true

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dybe1mgjilhm3"
-path="res://.godot/imported/strela.blend-d78e4afb3b13d9b953ae517747f0ca14.scn"
+uid="uid://bf7qvrn0r4j1e"
+path="res://.godot/imported/navigace.blend-2246ebd872c064ba3dd617aae87a6b5e.scn"
 
 [deps]
 
-source_file="res://mesh/strela.blend"
-dest_files=["res://.godot/imported/strela.blend-d78e4afb3b13d9b953ae517747f0ca14.scn"]
+source_file="res://mesh/zdroje/navigace.blend"
+dest_files=["res://.godot/imported/navigace.blend-2246ebd872c064ba3dd617aae87a6b5e.scn"]
 
 [params]
 

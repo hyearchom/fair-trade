@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dlgtbcc4ja3v1"
-path="res://.godot/imported/kontraband.blend-59476ff66b8130cc14a0d8234babcb90.scn"
+path="res://.godot/imported/kontraband.blend-3c2f2388eb1dbfedd36074b87d3fd565.scn"
 
 [deps]
 
-source_file="res://mesh/kontraband.blend"
-dest_files=["res://.godot/imported/kontraband.blend-59476ff66b8130cc14a0d8234babcb90.scn"]
+source_file="res://mesh/zdroje/kontraband.blend"
+dest_files=["res://.godot/imported/kontraband.blend-3c2f2388eb1dbfedd36074b87d3fd565.scn"]
 
 [params]
 

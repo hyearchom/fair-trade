@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://di76nunf1dynu"]
 
-[ext_resource type="Material" uid="uid://d056akmr51pf1" path="res://mesh/asteroidy/modry_kov.tres" id="1_08cri"]
+[ext_resource type="Material" uid="uid://d056akmr51pf1" path="res://mesh/materialy/modry_kov.tres" id="1_08cri"]
 [ext_resource type="Script" path="res://mesh/asteroidy/Asteroid.gd" id="2_n1ixv"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_umwdb"]

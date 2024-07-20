@@ -33,7 +33,6 @@ func _physics_process(_delta: float) -> void:
 		vykon -= zpomaleni 
 	vykon = clampf(vykon, -MAX_VYKON, MAX_VYKON)
 
-	
 	if not Input.is_anything_pressed():
 		if zmena_rotace:
 			zmena_rotace = false
@@ -44,7 +43,7 @@ func _physics_process(_delta: float) -> void:
 
 	var kolize = move_and_slide()
 	if kolize:
-		print('Naraz!')
+		_naraz()
 
 
 func _otocit_lod(osa, smer) -> void:
@@ -53,6 +52,13 @@ func _otocit_lod(osa, smer) -> void:
 	zmena_rotace = true
 
 
+func _naraz() -> void:
+	var ucastnik: Node3D = get_last_slide_collision().get_collider()
+	if ucastnik.is_in_group('zbozi'):
+		Signaly.emit_signal('zbozi_ziskano')
+		ucastnik.queue_free()
+
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("drzet_rychlost"):
-		tempomat = true
+		tempomat = not tempomat
