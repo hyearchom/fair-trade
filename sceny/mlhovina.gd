@@ -32,7 +32,7 @@ func _ready() -> void:
 
 func _vytvorit_pole() -> void:
 	$Oblast.scale = HRANICE_POLE *10
-	for poradi in range(POCET):
+	for _i:int in range(POCET):
 		_pridat_prazdny_asteroid()
 	if CILOVY:
 		_pridat_cilovy_asteroid()
@@ -87,7 +87,7 @@ func _podoba_mlhy() -> void:
 	#$Oblast/Hranice.disabled = false
 
 
-func _nastavit_dohled(rodic, mez) -> void:
+func _nastavit_dohled(rodic:Node, mez:int) -> void:
 	for prvek: Node3D in rodic.get_children():
 		if prvek is MeshInstance3D:
 			prvek.visibility_range_end = mez

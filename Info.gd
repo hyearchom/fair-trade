@@ -2,7 +2,7 @@ extends CanvasLayer
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released('cela_obrazovka'):
-		var MOD = [
+		var MOD := [
 			DisplayServer.WINDOW_MODE_WINDOWED,
 			DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
 			]

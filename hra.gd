@@ -6,7 +6,7 @@ var cilova_mlhovina: int = 0
 
 
 func _ready() -> void:
-	Signaly.zbozi_ziskano.connect(func(): zbozi += 1)
+	Signaly.zbozi_ziskano.connect(func() -> void: zbozi += 1)
 	Signaly.zbozi_ziskano.connect(_postup_hrou)
 	_navigovat_dale()
 	#Signaly.opusteni_mlhoviny.connect(_postup_hrou)

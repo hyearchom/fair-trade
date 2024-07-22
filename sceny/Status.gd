@@ -11,7 +11,7 @@ func _ready() -> void:
 	Signaly.zbozi_ziskano.connect(_vypsat_zmenu.bind('navigace'))
 
 
-func _overeni_objeveni(oznaceni) -> void:
+func _overeni_objeveni(oznaceni:int) -> void:
 	var Hra: Node = $'/root/Hra'
 	if Hra.cilova_mlhovina == oznaceni:
 		_vypsat_zmenu('vyhledej')
