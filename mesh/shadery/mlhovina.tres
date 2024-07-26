@@ -119,7 +119,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-53.9357, 657.163)
 modes/diffuse = 1
 modes/specular = 1
 flags/alpha_to_coverage = true
