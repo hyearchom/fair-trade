@@ -1,21 +1,21 @@
 extends CharacterBody3D
 
-const MAX_VYKON = 0.2
+const MAX_VYKON = 0.25
 
 func _ready() -> void:
-	add_to_group('souperi')
+	add_to_group('strely')
 	$Rozlet.start()
 
 
 func _physics_process(_delta: float) -> void:
-	var smer = Vector3.BACK
+	var smer := Vector3.BACK
 	
 	if $Rozlet.is_stopped():
-		var cil = _najit_hrace()
-		smer = _navadeni_za_hracem(cil)
+		var cil := _najit_hrace()
+		smer = global_position.direction_to(cil)
 		look_at(cil)
 	
-	var srazka = move_and_collide(smer *MAX_VYKON)
+	var srazka := move_and_collide(smer *MAX_VYKON)
 
 	if srazka:
 		#queue_free()
@@ -28,6 +28,5 @@ func _najit_hrace() -> Vector3:
 	return hrac.global_position
 
 
-func _navadeni_za_hracem(cil: Vector3) -> Vector3:
-	var smer = (cil -global_position).normalized()
-	return smer
+func _zhmotneni() -> void:
+	$Plast.disabled = false

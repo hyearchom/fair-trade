@@ -138,6 +138,7 @@ script = ExtResource("1_fak8c")
 [node name="Plast" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.00765991, -0.00372314, 0.00201225)
 shape = SubResource("BoxShape3D_pccos")
+disabled = true
 
 [node name="Strela" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 0, 0, 0)
@@ -146,7 +147,7 @@ skeleton = NodePath("")
 
 [node name="Kour" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.513577)
-amount = 40
+amount = 50
 lifetime = 1.75
 randomness = 1.0
 visibility_aabb = AABB(-4, -4, 0, 8, 8, 40)
@@ -156,3 +157,5 @@ draw_pass_1 = SubResource("SphereMesh_suutc")
 [node name="Rozlet" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[connection signal="timeout" from="Rozlet" to="." method="_zhmotneni"]
