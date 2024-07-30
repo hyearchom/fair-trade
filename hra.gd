@@ -13,8 +13,11 @@ func _ready() -> void:
 
 
 func _postup_hrou() -> void:
-	cilova_mlhovina += 1
-	_navigovat_dale()
+	if pozadavek_zbozi == zbozi:
+		Signaly.epilog.emit()
+	else:
+		cilova_mlhovina += 1
+		_navigovat_dale()
 
 
 func _navigovat_dale() -> void:

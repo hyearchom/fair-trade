@@ -1,12 +1,10 @@
-[gd_scene load_steps=101 format=3 uid="uid://35ddx4oy5mo1"]
+[gd_scene load_steps=98 format=3 uid="uid://35ddx4oy5mo1"]
 
 [ext_resource type="Script" path="res://hra.gd" id="1_6150i"]
 [ext_resource type="Texture2D" uid="uid://ch06ejtbxubkr" path="res://panorama.png" id="1_juhdg"]
 [ext_resource type="PackedScene" uid="uid://sr52dyhwqe6" path="res://sceny/hrac.tscn" id="2_4w787"]
 [ext_resource type="Script" path="res://sceny/Atmosfera.gd" id="2_nw8sa"]
-[ext_resource type="Script" path="res://sceny/Lode.gd" id="2_vcnbw"]
-[ext_resource type="PackedScene" uid="uid://cl1hne0eoc1h6" path="res://sceny/hlidka.tscn" id="4_jv0fp"]
-[ext_resource type="Script" path="res://patrola.gd" id="4_nrmqc"]
+[ext_resource type="Script" path="res://sceny/Strely.gd" id="2_vcnbw"]
 [ext_resource type="Script" path="res://Info.gd" id="5_gl8m3"]
 [ext_resource type="Shader" uid="uid://cdqw8phjl17h0" path="res://mesh/shadery/povrch_planety.tres" id="8_wm4yh"]
 [ext_resource type="PackedScene" uid="uid://dbqkbcpsl6e3v" path="res://sceny/mlhovina.tscn" id="9_xhtjt"]
@@ -18,13 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://lkiqfr2eqt7w" path="res://mesh/asteroidy/velke/velky_dvojcata.tscn" id="15_dcqx1"]
 [ext_resource type="PackedScene" uid="uid://bqdf23qcmarms" path="res://mesh/asteroidy/velke/velky_silne_deformovany.tscn" id="17_e5tnu"]
 [ext_resource type="PackedScene" uid="uid://c1nsohn1j2ah6" path="res://mesh/asteroidy/velke/velky_slabe_deformovany.tscn" id="18_lykdk"]
-
-[sub_resource type="Curve3D" id="Curve3D_fyoh5"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, -165, 0, 0, 0, 0, 0, 0, 0, 0, -80, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-"tilts": PackedFloat32Array(0, 3.14, 6.28)
-}
-point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_dgmbg"]
 offsets = PackedFloat32Array(0.129213, 0.432584, 1)
@@ -653,7 +644,7 @@ font_size = 20
 font_color = Color(0.156863, 0.843137, 0.262745, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5inoa"]
-font_size = 85
+font_size = 75
 font_color = Color(0.631373, 0.686275, 0.623529, 1)
 
 [node name="Hra" type="Node"]
@@ -662,21 +653,10 @@ pozadavek_zbozi = 4
 
 [node name="Vesmir" type="Node3D" parent="."]
 
-[node name="Lode" type="Node3D" parent="Vesmir"]
+[node name="Hrac" parent="Vesmir" instance=ExtResource("2_4w787")]
+
+[node name="Strely" type="Node3D" parent="Vesmir"]
 script = ExtResource("2_vcnbw")
-
-[node name="Hrac" parent="Vesmir/Lode" instance=ExtResource("2_4w787")]
-
-[node name="Cesta" type="Path3D" parent="Vesmir/Lode"]
-curve = SubResource("Curve3D_fyoh5")
-
-[node name="Patrola" type="PathFollow3D" parent="Vesmir/Lode/Cesta"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -165)
-rotation_mode = 4
-script = ExtResource("4_nrmqc")
-
-[node name="Hlidka" parent="Vesmir/Lode/Cesta/Patrola" instance=ExtResource("4_jv0fp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Planeta" type="MeshInstance3D" parent="Vesmir"]
 transform = Transform3D(-10, 0, -8.74228e-07, 0, 10, 0, 8.74228e-07, 0, -10, 100, 0, 1000)
@@ -707,7 +687,6 @@ environment = SubResource("Environment_7cc05")
 script = ExtResource("2_nw8sa")
 
 [node name="Mlhoviny" type="Node3D" parent="Vesmir"]
-visible = false
 
 [node name="Pole" parent="Vesmir/Mlhoviny" instance=ExtResource("9_xhtjt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -175)
@@ -739,6 +718,7 @@ BARVA = Color(0.972549, 0.290196, 0.392157, 1)
 POCET = 30
 POMER = 0.5
 CILOVY = ExtResource("15_dcqx1")
+POCET_LODI = 1
 
 [node name="Podoba" parent="Vesmir/Mlhoviny/Kamenne/Oblast" index="0"]
 mesh = SubResource("CapsuleMesh_kwb0v")
@@ -752,6 +732,7 @@ BARVA = Color(0.184314, 0.282353, 0.345098, 1)
 POCET = 40
 POMER = 0.7
 CILOVY = ExtResource("13_qsk30")
+POCET_LODI = 3
 
 [node name="Podoba" parent="Vesmir/Mlhoviny/Huste/Oblast" index="0"]
 mesh = SubResource("CapsuleMesh_4lcor")

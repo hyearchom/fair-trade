@@ -1,5 +1,7 @@
 extends Node3D
 
+const PATROLA := preload("res://sceny/patrola.tscn")
+
 @export_category('Pole')
 var poradi: int
 @export var HRANICE_POLE := Vector3i(1,1,5)
@@ -18,8 +20,10 @@ var poradi: int
 @export var VELKE: Array[PackedScene]
 @export var CILOVY: PackedScene
 
-var obsazene_pole: Array
+@export_category('Patroly')
+@export_range(0,99,1) var POCET_LODI := int(0) 
 
+var obsazene_pole: Array
 
 func _ready() -> void:
 	poradi = get_index()
@@ -28,7 +32,8 @@ func _ready() -> void:
 	if HUSTOTA:
 		_podoba_mlhy()
 	_nastavit_dohled($Asteroidy, VIDITELNOST)
-
+	for _i in POCET_LODI:
+		_nasadit_patrolu()
 
 func _vytvorit_pole() -> void:
 	$Oblast.scale = HRANICE_POLE *10
@@ -111,3 +116,24 @@ func _prekroceni(body: Node3D, vstup: bool) -> void:
 func _spustit_navigaci(cilova_mlhovina: int) -> void:
 	if cilova_mlhovina == poradi:
 		$Navigace.show()
+
+
+func _nasadit_patrolu() -> void:
+	var letovy_plan := _vytvorit_letovy_plan()
+	var patrola := PATROLA.instantiate()
+	$Lode.add_child(letovy_plan)
+	letovy_plan.add_child(patrola)
+
+
+func _vytvorit_letovy_plan() -> Path3D:
+	var cesta := Path3D.new()
+	cesta.curve = Curve3D.new()
+	for _poradi in range(3):
+		var nahodny_bod := Vector3(
+			randf_range(-HRANICE_POLE.x, HRANICE_POLE.x),
+			randf_range(-HRANICE_POLE.y, HRANICE_POLE.y),
+			randf_range(-HRANICE_POLE.z, HRANICE_POLE.z),
+		)
+		cesta.curve.add_point(nahodny_bod *10)
+	return cesta
+	#var nahodne_natoceni := randf_range(0, 2*PI)

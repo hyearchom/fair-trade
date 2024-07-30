@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-const MAX_VYKON = 0.25
+const MAX_VYKON = 0.15
 
 func _ready() -> void:
 	add_to_group('strely')
@@ -8,7 +8,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	var smer := Vector3.BACK
+	var smer := transform.basis.z
 	
 	if $Rozlet.is_stopped():
 		var cil := _najit_hrace()
@@ -18,9 +18,9 @@ func _physics_process(_delta: float) -> void:
 	var srazka := move_and_collide(smer *MAX_VYKON)
 
 	if srazka:
-		#queue_free()
+		queue_free()
 		if srazka.get_collider().is_in_group('hrac'):
-			print('Zničen!')
+			Signaly.konec_hry.emit()
 
 
 func _najit_hrace() -> Vector3:

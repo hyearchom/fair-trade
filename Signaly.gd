@@ -5,3 +5,5 @@ signal zbozi_ziskano
 signal opusteni_mlhoviny
 signal objeveni_mlhoviny
 signal vyslani_strely
+signal konec_hry
+signal epilog

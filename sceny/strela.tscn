@@ -6,10 +6,10 @@
 size = Vector3(0.904846, 0.544861, 0.544556)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjw4e"]
-albedo_color = Color(0.94902, 0.988235, 0.941176, 1)
+albedo_color = Color(0.631373, 0.686275, 0.623529, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w0d8j"]
-albedo_color = Color(0.631373, 0.686275, 0.623529, 1)
+albedo_color = Color(0.184314, 0.282353, 0.345098, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ux6cx"]
 albedo_color = Color(0, 0, 0, 1)
@@ -136,7 +136,7 @@ motion_mode = 1
 script = ExtResource("1_fak8c")
 
 [node name="Plast" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.00765991, -0.00372314, 0.00201225)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 shape = SubResource("BoxShape3D_pccos")
 disabled = true
 
@@ -153,6 +153,12 @@ randomness = 1.0
 visibility_aabb = AABB(-4, -4, 0, 8, 8, 40)
 process_material = SubResource("ParticleProcessMaterial_grkt8")
 draw_pass_1 = SubResource("SphereMesh_suutc")
+
+[node name="Zare" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.488573)
+light_color = Color(0.901961, 0.847059, 0.345098, 1)
+light_energy = 10.0
+omni_range = 1.0
 
 [node name="Rozlet" type="Timer" parent="."]
 wait_time = 3.0

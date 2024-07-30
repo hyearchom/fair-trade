@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cl1hne0eoc1h6"]
+[gd_scene load_steps=9 format=3 uid="uid://cm2ocfqfolct1"]
 
-[ext_resource type="Script" path="res://hlidka.gd" id="1_hnsv8"]
+[ext_resource type="Script" path="res://sceny/patrola.gd" id="1_yha1d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rdixe"]
 albedo_color = Color(0.0784314, 0.117647, 0.0705882, 1)
@@ -123,27 +123,33 @@ shadow_mesh = SubResource("ArrayMesh_o1f73")
 points = PackedVector3Array(5.43504, -0.00718403, 2.11706, 0.307476, 2.16809, 2.77396, 0.737344, -0.00718403, 5.5642, 0.307476, -2.16803, 2.77396, 5.16052, -0.293259, 1.73064, 5.1403, -0.293259, 0.0819407, 5.41163, -0.00718403, 0.255828, 5.1403, 0.292897, 0.0819407, 5.16052, 0.292897, 1.73064, -0.309662, 2.16809, 2.77396, 0.999095, 0.292897, -9.78613, -0.738466, -0.00718403, 5.5642, -0.309662, -2.16803, 2.77396, 0.999095, -0.293259, -9.78613, 0.737344, -0.00718403, -10.8842, -1.00022, 0.292897, -9.78613, -5.14142, 0.292897, 0.0819407, -5.16164, 0.292897, 1.73064, -5.43509, -0.00718403, 2.11706, -5.16164, -0.293259, 1.73064, -5.14142, -0.293259, 0.0819407, -1.00022, -0.293259, -9.78613, -0.740594, -0.0101552, -10.8842, -0.738466, -0.00718403, -10.8842, -5.41381, -0.00718403, 0.255828)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pqaxv"]
-radius = 50.0
-height = 200.0
+radius = 20.0
+height = 60.0
 
-[node name="Hlidka" type="CharacterBody3D"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -164.529)
+[node name="Patrola" type="PathFollow3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -165)
+rotation_mode = 4
+loop = false
+script = ExtResource("1_yha1d")
+
+[node name="Hlidka" type="CharacterBody3D" parent="."]
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
-script = ExtResource("1_hnsv8")
 
-[node name="Tvar" type="MeshInstance3D" parent="."]
+[node name="Tvar" type="MeshInstance3D" parent="Hlidka"]
+visibility_range_end = 70.0
+visibility_range_end_margin = 20.0
 mesh = SubResource("ArrayMesh_wjdot")
 skeleton = NodePath("")
 
-[node name="Plast" type="CollisionShape3D" parent="."]
+[node name="Plast" type="CollisionShape3D" parent="Hlidka"]
 shape = SubResource("ConvexPolygonShape3D_s3x0y")
 
-[node name="Radar" type="ShapeCast3D" parent="."]
+[node name="Radar" type="ShapeCast3D" parent="Hlidka"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_pqaxv")
-target_position = Vector3(0, 50, 0)
+target_position = Vector3(0, 15, 0)
 max_results = 1
 collision_mask = 16
 debug_shape_custom_color = Color(0, 1, 0, 1)
