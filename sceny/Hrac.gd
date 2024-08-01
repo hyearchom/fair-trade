@@ -10,6 +10,8 @@ var tempomat: bool
 
 func _ready() -> void:
 	add_to_group('hrac')
+	Signaly.objeveni_mlhoviny.connect(rozsvitit_svetlomety.bind(true).unbind(1))
+	Signaly.opusteni_mlhoviny.connect(rozsvitit_svetlomety.bind(false))
 
 
 func _physics_process(_delta: float) -> void:
@@ -17,6 +19,7 @@ func _physics_process(_delta: float) -> void:
 	_pohled_podle_pohybu()
 	
 	vykon = _nastaveni_rychlosti_lodi()
+	_signalizace_pohybu(vykon)
 	if vykon:
 		velocity = -transform.basis.z * vykon
 	# v případě kolize, funkce pohybu vrací true
@@ -59,6 +62,11 @@ func _nastaveni_rychlosti_lodi() -> float:
 	return vykon
 
 
+func _signalizace_pohybu(soucasny_vykon:float) -> void:
+	var pomer_vykonu: float = abs(soucasny_vykon)/MAX_VYKON 
+	$Lod.get_active_material(2).emission_energy_multiplier = pomer_vykonu *2
+
+
 func _pohled_podle_pohybu() -> void:
 	if not Input.is_anything_pressed():
 		if zmena_rotace:
@@ -70,9 +78,19 @@ func _naraz() -> void:
 	var ucastnik: Node3D = get_last_slide_collision().get_collider()
 	if ucastnik.is_in_group('zbozi'):
 		Signaly.emit_signal('zbozi_ziskano')
-		ucastnik.queue_free()
+		ucastnik.objevit(false)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("drzet_rychlost"):
 		tempomat = not tempomat
+
+
+func rozsvitit_svetlomety(stav:bool) -> void:
+	$Lod.get_active_material(3).emission_enabled = stav
+	$Svetla.light_energy = 7 *int(stav)
+
+
+func navratit_na_zacatek() -> void:
+	global_position = Vector3.ZERO
+	global_rotation = Vector3.ZERO

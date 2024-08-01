@@ -47,5 +47,5 @@ void fragment() {
 [resource]
 render_priority = 0
 shader = SubResource("Shader_n5utn")
-shader_parameter/albedo = Color(0.976471, 0.490196, 0.176471, 1)
+shader_parameter/albedo = Color(0.94902, 0.988235, 0.941176, 1)
 shader_parameter/vysek = 0.4

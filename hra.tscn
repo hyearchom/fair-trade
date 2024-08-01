@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://35ddx4oy5mo1"]
+[gd_scene load_steps=101 format=3 uid="uid://35ddx4oy5mo1"]
 
 [ext_resource type="Script" path="res://hra.gd" id="1_6150i"]
 [ext_resource type="Texture2D" uid="uid://ch06ejtbxubkr" path="res://panorama.png" id="1_juhdg"]
@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://cl6srsf5ep882" path="res://mesh/asteroidy/velke/velky_duty.tscn" id="13_qsk30"]
 [ext_resource type="PackedScene" uid="uid://lkiqfr2eqt7w" path="res://mesh/asteroidy/velke/velky_dvojcata.tscn" id="15_dcqx1"]
 [ext_resource type="PackedScene" uid="uid://bqdf23qcmarms" path="res://mesh/asteroidy/velke/velky_silne_deformovany.tscn" id="17_e5tnu"]
+[ext_resource type="AudioStream" uid="uid://bgt8htvihole3" path="res://audio/background-ambient-music-in-lydian-mode.mp3" id="17_r83rk"]
+[ext_resource type="Script" path="res://Zvuky.gd" id="17_unkvl"]
+[ext_resource type="AudioStream" uid="uid://cjufth8e727ls" path="res://audio/thunderbird-game-over.mp3" id="18_7fxnt"]
 [ext_resource type="PackedScene" uid="uid://c1nsohn1j2ah6" path="res://mesh/asteroidy/velke/velky_slabe_deformovany.tscn" id="18_lykdk"]
 
 [sub_resource type="Gradient" id="Gradient_dgmbg"]
@@ -43,7 +46,7 @@ noise = SubResource("FastNoiseLite_c7xef")
 
 [sub_resource type="Gradient" id="Gradient_fpqgf"]
 offsets = PackedFloat32Array(0, 0.595506)
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.94902, 0.988235, 0.941176, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0xg2w"]
 gradient = SubResource("Gradient_fpqgf")
@@ -74,7 +77,7 @@ noise = SubResource("FastNoiseLite_tyhpd")
 
 [sub_resource type="Gradient" id="Gradient_rf5u8"]
 offsets = PackedFloat32Array(0.44382, 0.522472, 0.752809, 0.955056)
-colors = PackedColorArray(0, 0.423529, 0.576471, 1, 0.257855, 0.729767, 0.39791, 1, 0.131148, 0.68363, 0.295114, 1, 1, 1, 0, 1)
+colors = PackedColorArray(0, 0.396078, 0.490196, 1, 0, 0.745098, 0.458824, 1, 0, 0.745098, 0.458824, 1, 0.976471, 1, 0.176471, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ylp5e"]
 gradient = SubResource("Gradient_rf5u8")
@@ -120,24 +123,6 @@ scale_min = 0.2
 scale_max = 0.7
 color_ramp = SubResource("GradientTexture1D_q1una")
 collision_mode = 2
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmn5u"]
-panorama = ExtResource("1_juhdg")
-
-[sub_resource type="Sky" id="Sky_oyqwq"]
-sky_material = SubResource("PanoramaSkyMaterial_vmn5u")
-
-[sub_resource type="Environment" id="Environment_7cc05"]
-background_mode = 2
-sky = SubResource("Sky_oyqwq")
-ambient_light_source = 1
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 8.85
-fog_light_energy = 0.07
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.0
-volumetric_fog_albedo = Color(0, 0, 0, 1)
-volumetric_fog_emission = Color(0, 0.396078, 0.490196, 1)
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_j7h6t"]
 
@@ -639,13 +624,32 @@ radius = 3.0
 height = 6.0
 rings = 32
 
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmn5u"]
+panorama = ExtResource("1_juhdg")
+
+[sub_resource type="Sky" id="Sky_oyqwq"]
+sky_material = SubResource("PanoramaSkyMaterial_vmn5u")
+
+[sub_resource type="Environment" id="Environment_7cc05"]
+background_mode = 2
+sky = SubResource("Sky_oyqwq")
+ambient_light_source = 1
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 8.85
+fog_light_energy = 0.07
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+volumetric_fog_emission = Color(0, 0.396078, 0.490196, 1)
+adjustment_enabled = true
+
 [sub_resource type="LabelSettings" id="LabelSettings_k7mql"]
 font_size = 20
 font_color = Color(0.156863, 0.843137, 0.262745, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5inoa"]
 font_size = 75
-font_color = Color(0.631373, 0.686275, 0.623529, 1)
+font_color = Color(0.976471, 0.490196, 0.176471, 1)
 
 [node name="Hra" type="Node"]
 script = ExtResource("1_6150i")
@@ -681,10 +685,6 @@ draw_pass_1 = ExtResource("11_n7k2e")
 
 [node name="Slunecni_svit" type="DirectionalLight3D" parent="Vesmir"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 29, -33)
-
-[node name="Atmosfera" type="WorldEnvironment" parent="Vesmir"]
-environment = SubResource("Environment_7cc05")
-script = ExtResource("2_nw8sa")
 
 [node name="Mlhoviny" type="Node3D" parent="Vesmir"]
 
@@ -737,6 +737,10 @@ POCET_LODI = 3
 [node name="Podoba" parent="Vesmir/Mlhoviny/Huste/Oblast" index="0"]
 mesh = SubResource("CapsuleMesh_4lcor")
 
+[node name="Atmosfera" type="WorldEnvironment" parent="Vesmir"]
+environment = SubResource("Environment_7cc05")
+script = ExtResource("2_nw8sa")
+
 [node name="Info" type="CanvasLayer" parent="."]
 layer = 2
 script = ExtResource("5_gl8m3")
@@ -767,6 +771,20 @@ horizontal_alignment = 1
 autowrap_mode = 3
 uppercase = true
 script = ExtResource("13_02mju")
+
+[node name="Zvuky" type="Node" parent="."]
+script = ExtResource("17_unkvl")
+
+[node name="Atmosfera" type="AudioStreamPlayer" parent="Zvuky"]
+stream = ExtResource("17_r83rk")
+volume_db = -8.0
+autoplay = true
+bus = &"Podkres"
+
+[node name="Boj" type="AudioStreamPlayer" parent="Zvuky"]
+stream = ExtResource("18_7fxnt")
+volume_db = -10.0
+bus = &"Hudba"
 
 [editable path="Vesmir/Mlhoviny/Pole"]
 [editable path="Vesmir/Mlhoviny/Slabe"]

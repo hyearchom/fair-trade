@@ -4,13 +4,15 @@ var posun_viditelnosti_zpravy: Tween
 var ZPRAVY := {
 	'vyhledej': 'Collect hidden cargo',
 	'navigace': 'Navigation updated',
-	'umrti': 'Meeting the Creator'
+	'umrti': 'Proviant wasted',
+	'vyhra': "Let's install some guns!"
 }
 
 func _ready() -> void:
 	Signaly.objeveni_mlhoviny.connect(_overeni_objeveni)
 	Signaly.zbozi_ziskano.connect(_vypsat_zmenu.bind('navigace'))
 	Signaly.konec_hry.connect(_vypsat_zmenu.bind('umrti'))
+	Signaly.epilog.connect(_vypsat_zmenu.bind('vyhra'))
 
 
 func _overeni_objeveni(oznaceni:int) -> void:

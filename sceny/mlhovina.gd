@@ -31,7 +31,6 @@ func _ready() -> void:
 	_vytvorit_pole()
 	if HUSTOTA:
 		_podoba_mlhy()
-	_nastavit_dohled($Asteroidy, VIDITELNOST)
 	for _i in POCET_LODI:
 		_nasadit_patrolu()
 
@@ -41,6 +40,7 @@ func _vytvorit_pole() -> void:
 		_pridat_prazdny_asteroid()
 	if CILOVY:
 		_pridat_cilovy_asteroid()
+	_nastavit_dohled($Asteroidy, VIDITELNOST)
 
 func _pridat_prazdny_asteroid() -> void:
 	var scena_asteroidu: PackedScene
@@ -64,8 +64,7 @@ func _pridat_prazdny_asteroid() -> void:
 func _pridat_cilovy_asteroid() -> void:
 	var asteroid := CILOVY.instantiate()
 	asteroid.position = _vybrat_souranice()
-	asteroid.get_node('Barel').show()
-	asteroid.get_node('Barel/Plast').disabled = false
+	asteroid.get_node('Barel').objevit(true)
 	_nastavit_dohled(asteroid.get_node('Barel'), VIDITELNOST -20)
 	$Asteroidy.add_child(asteroid)
 	
@@ -95,11 +94,13 @@ func _podoba_mlhy() -> void:
 func _nastavit_dohled(rodic:Node, mez:int) -> void:
 	for prvek: Node3D in rodic.get_children():
 		if prvek is MeshInstance3D:
-			prvek.visibility_range_end = mez
-			prvek.visibility_range_end_margin = 20
-			prvek.visibility_range_fade_mode = \
-					GeometryInstance3D.VISIBILITY_RANGE_FADE_SELF
-
+			if not prvek.is_in_group('velky'):
+				prvek.visibility_range_end = mez
+				prvek.visibility_range_end_margin = 20
+				prvek.visibility_range_fade_mode = \
+						GeometryInstance3D.VISIBILITY_RANGE_FADE_SELF
+			else:
+				prvek.visibility_range_end = mez +20
 
 func _prekroceni(body: Node3D, vstup: bool) -> void:
 	if body.is_in_group('hrac'):
