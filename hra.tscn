@@ -1,7 +1,6 @@
-[gd_scene load_steps=101 format=3 uid="uid://35ddx4oy5mo1"]
+[gd_scene load_steps=102 format=3 uid="uid://35ddx4oy5mo1"]
 
 [ext_resource type="Script" path="res://hra.gd" id="1_6150i"]
-[ext_resource type="Texture2D" uid="uid://ch06ejtbxubkr" path="res://panorama.png" id="1_juhdg"]
 [ext_resource type="PackedScene" uid="uid://sr52dyhwqe6" path="res://sceny/hrac.tscn" id="2_4w787"]
 [ext_resource type="Script" path="res://sceny/Atmosfera.gd" id="2_nw8sa"]
 [ext_resource type="Script" path="res://sceny/Strely.gd" id="2_vcnbw"]
@@ -10,9 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://dbqkbcpsl6e3v" path="res://sceny/mlhovina.tscn" id="9_xhtjt"]
 [ext_resource type="Script" path="res://sceny/Planeta.gd" id="10_7vefy"]
 [ext_resource type="ArrayMesh" uid="uid://cerqikjm65its" path="res://mesh/asteroidy/prach.tres" id="11_n7k2e"]
+[ext_resource type="Texture2D" uid="uid://cevk146052p48" path="res://panorama_4k.png" id="12_gokf6"]
 [ext_resource type="Script" path="res://sceny/Ukol_zbozi.gd" id="12_lhdro"]
 [ext_resource type="Script" path="res://sceny/Status.gd" id="13_02mju"]
 [ext_resource type="PackedScene" uid="uid://cl6srsf5ep882" path="res://mesh/asteroidy/velke/velky_duty.tscn" id="13_qsk30"]
+[ext_resource type="PackedScene" uid="uid://nyho8k0emfnq" path="res://sceny/vitezstvi.tscn" id="15_6pecu"]
 [ext_resource type="PackedScene" uid="uid://lkiqfr2eqt7w" path="res://mesh/asteroidy/velke/velky_dvojcata.tscn" id="15_dcqx1"]
 [ext_resource type="PackedScene" uid="uid://bqdf23qcmarms" path="res://mesh/asteroidy/velke/velky_silne_deformovany.tscn" id="17_e5tnu"]
 [ext_resource type="AudioStream" uid="uid://bgt8htvihole3" path="res://audio/background-ambient-music-in-lydian-mode.mp3" id="17_r83rk"]
@@ -625,7 +626,8 @@ height = 6.0
 rings = 32
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmn5u"]
-panorama = ExtResource("1_juhdg")
+panorama = ExtResource("12_gokf6")
+filter = false
 
 [sub_resource type="Sky" id="Sky_oyqwq"]
 sky_material = SubResource("PanoramaSkyMaterial_vmn5u")
@@ -663,7 +665,7 @@ pozadavek_zbozi = 4
 script = ExtResource("2_vcnbw")
 
 [node name="Planeta" type="MeshInstance3D" parent="Vesmir"]
-transform = Transform3D(-10, 0, -8.74228e-07, 0, 10, 0, 8.74228e-07, 0, -10, 100, 0, 1000)
+transform = Transform3D(-9.47205, 3.2063, -8.28073e-07, 3.2063, 9.47205, 2.80303e-07, 8.74228e-07, 0, -10, 100, 0, 1000)
 mesh = SubResource("SphereMesh_2sql2")
 script = ExtResource("10_7vefy")
 
@@ -683,8 +685,8 @@ collision_base_size = 0.0
 process_material = SubResource("ParticleProcessMaterial_b2ytd")
 draw_pass_1 = ExtResource("11_n7k2e")
 
-[node name="Slunecni_svit" type="DirectionalLight3D" parent="Vesmir"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 29, -33)
+[node name="Slunecni svit" type="DirectionalLight3D" parent="Vesmir"]
+transform = Transform3D(0.887011, 0.337702, -0.314912, 0, 0.681998, 0.731354, 0.461749, -0.648719, 0.60494, 0, 29, -33)
 
 [node name="Mlhoviny" type="Node3D" parent="Vesmir"]
 
@@ -744,6 +746,8 @@ script = ExtResource("2_nw8sa")
 [node name="Info" type="CanvasLayer" parent="."]
 layer = 2
 script = ExtResource("5_gl8m3")
+
+[node name="Vitezstvi" parent="Info" instance=ExtResource("15_6pecu")]
 
 [node name="Okraje" type="MarginContainer" parent="Info"]
 anchors_preset = 15

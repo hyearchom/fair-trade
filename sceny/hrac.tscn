@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://sr52dyhwqe6"]
+[gd_scene load_steps=16 format=3 uid="uid://sr52dyhwqe6"]
 
 [ext_resource type="Script" path="res://sceny/Hrac.gd" id="1_fdglu"]
 [ext_resource type="Script" path="res://sceny/Pohledy.gd" id="2_xmspn"]
@@ -141,6 +141,40 @@ material = SubResource("StandardMaterial3D_6hh5n")
 radius = 0.1
 height = 0.2
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ig1ql"]
+lifetime_randomness = 0.1
+emission_shape_scale = Vector3(2, 2, 2)
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+linear_accel_max = 5.0
+radial_accel_min = 1.0
+radial_accel_max = 3.0
+turbulence_noise_scale = 10.0
+
+[sub_resource type="Curve" id="Curve_dljnq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.479495, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kc2xf"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.976471, 0.490196, 0.176471, 0.588235)
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_klow5"]
+material = SubResource("StandardMaterial3D_kc2xf")
+shape = 0
+size = 0.05
+sections = 3
+section_length = 0.4
+section_segments = 5
+curve = SubResource("Curve_dljnq")
+
 [node name="Hrac" type="CharacterBody3D"]
 collision_layer = 17
 motion_mode = 1
@@ -174,7 +208,7 @@ update_scale = false
 [node name="Krk" type="Node3D" parent="Pohledy/Oddeleni"]
 
 [node name="Hlava" type="Camera3D" parent="Pohledy/Oddeleni/Krk"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 7.5)
 current = true
 
 [node name="Celo" type="Camera3D" parent="Pohledy"]
@@ -191,9 +225,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.5
 visible = false
 omni_range = 6.464
 
-[node name="Trysky" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.329925, 1.51303)
-
 [node name="Svetla" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.564944, -2.12559)
 light_energy = 0.0
@@ -204,3 +235,13 @@ spot_angle = 70.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132507, 0.321924)
 visible = false
 size = Vector3(4.4, 2.1, 5.2)
+
+[node name="Vitr" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.5
+visibility_aabb = AABB(-4, -4, -2, 8, 8, 8)
+transform_align = 2
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_ig1ql")
+draw_pass_1 = SubResource("RibbonTrailMesh_klow5")

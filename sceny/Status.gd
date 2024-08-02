@@ -2,10 +2,10 @@ extends Label
 
 var posun_viditelnosti_zpravy: Tween
 var ZPRAVY := {
-	'vyhledej': 'Collect hidden cargo',
+	'vyhledej': 'Snatch hidden cargo',
 	'navigace': 'Navigation updated',
 	'umrti': 'Proviant wasted',
-	'vyhra': "Let's install some guns!"
+	'vyhra': "Let's get rich!"
 }
 
 func _ready() -> void:

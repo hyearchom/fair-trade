@@ -5,7 +5,7 @@ func _ready() -> void:
 	Signaly.konec_hry.connect(_podkresova_hudba.bind(false))
 	
 	Signaly.vyslani_strely.connect(_akcni_hudba.bind(true).unbind(2))
-	Signaly.strela_znicena.connect(_akcni_hudba.bind(false))
+	Signaly.strela_znicena.connect(_akcni_hudba.bind(false).unbind(1))
 	Signaly.konec_hry.connect(_akcni_hudba.bind(false))
 	
 

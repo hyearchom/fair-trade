@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://nyho8k0emfnq"]
+
+[ext_resource type="Script" path="res://sceny/vitezstvi.gd" id="1_wu6m3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_46bby"]
+line_spacing = 10.0
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ofix"]
+line_spacing = 10.0
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_futiq"]
+line_spacing = 10.0
+font_size = 50
+
+[sub_resource type="Gradient" id="Gradient_5r12r"]
+offsets = PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8)
+colors = PackedColorArray(0.996078, 0.862745, 0.160784, 1, 0.2, 0.580392, 0.819608, 1, 0.839216, 0.105882, 0.188235, 1, 0.458824, 0.258824, 0.521569, 1, 0.12549, 0.721569, 0.572549, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_32jgc"]
+gradient = SubResource("Gradient_5r12r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6wswj"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(500, 1, 1)
+angle_max = 180.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 100.0
+linear_accel_max = 500.0
+scale_min = 20.0
+scale_max = 20.0
+color_initial_ramp = SubResource("GradientTexture1D_32jgc")
+
+[node name="Vitezstvi" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wu6m3")
+
+[node name="NaStred" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Radkovani" type="VBoxContainer" parent="NaStred"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="H1" type="Label" parent="NaStred/Radkovani"]
+layout_mode = 2
+text = "You have stole it all!"
+label_settings = SubResource("LabelSettings_46bby")
+horizontal_alignment = 1
+
+[node name="H2" type="Label" parent="NaStred/Radkovani"]
+layout_mode = 2
+text = "Do you wanna sell it for guns?"
+label_settings = SubResource("LabelSettings_7ofix")
+horizontal_alignment = 1
+
+[node name="H3" type="Label" parent="NaStred/Radkovani"]
+layout_mode = 2
+text = "Leave a comment for more!"
+label_settings = SubResource("LabelSettings_futiq")
+horizontal_alignment = 1
+
+[node name="Konfety" type="GPUParticles2D" parent="NaStred"]
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_6wswj")
+lifetime = 3.0
+visibility_rect = Rect2(-600, 0, 1200, 600)

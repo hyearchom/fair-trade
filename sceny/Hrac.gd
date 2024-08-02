@@ -65,6 +65,7 @@ func _nastaveni_rychlosti_lodi() -> float:
 func _signalizace_pohybu(soucasny_vykon:float) -> void:
 	var pomer_vykonu: float = abs(soucasny_vykon)/MAX_VYKON 
 	$Lod.get_active_material(2).emission_energy_multiplier = pomer_vykonu *2
+	$Vitr.emitting = int(pomer_vykonu)
 
 
 func _pohled_podle_pohybu() -> void:
@@ -94,3 +95,4 @@ func rozsvitit_svetlomety(stav:bool) -> void:
 func navratit_na_zacatek() -> void:
 	global_position = Vector3.ZERO
 	global_rotation = Vector3.ZERO
+	$Pohledy.navratit_pohled(0.1)

@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Smuggler King"
+config/name="Anything legal onboard?"
+config/version="1.0.0"
 run/main_scene="res://hra.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
@@ -22,6 +23,10 @@ Signaly="*res://Signaly.gd"
 [debug]
 
 gdscript/warnings/untyped_declaration=1
+
+[display]
+
+window/size/mode=4
 
 [editor]
 

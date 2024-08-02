@@ -117,6 +117,8 @@ func _prekroceni(body: Node3D, vstup: bool) -> void:
 func _spustit_navigaci(cilova_mlhovina: int) -> void:
 	if cilova_mlhovina == poradi:
 		$Navigace.show()
+	else:
+		$Navigace.hide()
 
 
 func _nasadit_patrolu() -> void:

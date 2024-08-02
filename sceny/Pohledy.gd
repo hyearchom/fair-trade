@@ -7,8 +7,8 @@ const CITLIVOST_MYSI = 0.001
 @onready var Krk := $Oddeleni/Krk
 @onready var SEZNAM := [
 	$Oddeleni/Krk/Hlava,
-	$Celo,
 	$Busta,
+	$Celo,
 	$Temeno,
 ]
 

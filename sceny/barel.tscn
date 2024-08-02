@@ -85,7 +85,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_m48us")
 
-[node name="Barel" type="StaticBody3D" groups=["zbozi"]]
+[node name="Barel" type="StaticBody3D"]
 transform = Transform3D(0.895851, -0.444353, 0, 0.444353, 0.895851, 6.98131e-05, -3.10217e-05, -6.25422e-05, 0.999999, 0, -0.236703, -1.42908)
 visible = false
 script = ExtResource("1_lqjsl")

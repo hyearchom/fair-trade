@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c0p28uhjbcgyx"]
+[gd_scene load_steps=17 format=3 uid="uid://c0p28uhjbcgyx"]
 
 [ext_resource type="Script" path="res://sceny/strela.gd" id="1_fak8c"]
 
@@ -51,7 +51,7 @@ _surfaces = [{
 blend_shape_mode = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_snxg3"]
-resource_name = "strela_Plane_003"
+resource_local_to_scene = true
 _surfaces = [{
 "aabb": AABB(-4.58171, -2.71151, -2.71156, 7.566, 5.42311, 5.42311),
 "attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 85, 85, 255, 255, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 84, 85, 0, 0, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255, 47, 249, 255, 255),
@@ -127,99 +127,10 @@ transparency = 1
 vertex_color_use_as_albedo = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_suutc"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_n22ya")
 radius = 0.1
 height = 0.2
-
-[sub_resource type="Curve" id="Curve_s0mf2"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.57193, 0.981455), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.0752141, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_r7jnc"]
-curve = SubResource("Curve_s0mf2")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3urne"]
-particle_flag_align_y = true
-spread = 180.0
-initial_velocity_min = 12.0
-initial_velocity_max = 14.0
-scale_min = 0.5
-scale_max = 1.5
-scale_curve = SubResource("CurveTexture_r7jnc")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6q0q5"]
-albedo_color = Color(0, 0, 0, 1)
-emission_enabled = true
-emission = Color(0.976471, 0.490196, 0.176471, 1)
-emission_energy_multiplier = 2.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_up4ou"]
-material = SubResource("StandardMaterial3D_6q0q5")
-top_radius = 0.1
-bottom_radius = 0.0
-
-[sub_resource type="Gradient" id="Gradient_so7mo"]
-colors = PackedColorArray(0.976471, 0.921569, 0.176471, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ie2hp"]
-gradient = SubResource("Gradient_so7mo")
-
-[sub_resource type="Curve" id="Curve_g66fy"]
-max_value = 2.0
-_data = [Vector2(0, 2), 0.0, 0.146814, 0, 0, Vector2(1, 0.980029), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_fdbs3"]
-curve = SubResource("Curve_g66fy")
-
-[sub_resource type="Curve" id="Curve_sm7ha"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.333333, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_rcn4s"]
-curve = SubResource("Curve_sm7ha")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rogao"]
-spread = 90.0
-initial_velocity_min = 2.0
-initial_velocity_max = 4.0
-gravity = Vector3(0, 5, 0)
-scale_min = 0.5
-scale_max = 1.5
-scale_curve = SubResource("CurveTexture_rcn4s")
-color = Color(0.156863, 0.843137, 0.262745, 1)
-color_ramp = SubResource("GradientTexture1D_ie2hp")
-emission_curve = SubResource("CurveTexture_fdbs3")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_absti"]
-vertex_color_use_as_albedo = true
-
-[sub_resource type="SphereMesh" id="SphereMesh_sctpr"]
-material = SubResource("StandardMaterial3D_absti")
-radial_segments = 8
-rings = 4
-
-[sub_resource type="Curve" id="Curve_6xy6g"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.631579, 0.768188), 1.4, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_m4hbb"]
-curve = SubResource("Curve_6xy6g")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_no23m"]
-initial_velocity_min = 1.0
-initial_velocity_max = 2.0
-gravity = Vector3(0, 5, 0)
-scale_min = 0.5
-scale_max = 1.5
-scale_curve = SubResource("CurveTexture_rcn4s")
-color = Color(0.243137, 0.290196, 0.239216, 1)
-alpha_curve = SubResource("CurveTexture_m4hbb")
-
-[sub_resource type="SphereMesh" id="SphereMesh_d25k6"]
-material = SubResource("StandardMaterial3D_absti")
-radial_segments = 8
-rings = 4
 
 [node name="Strela" type="CharacterBody3D"]
 motion_mode = 1
@@ -253,33 +164,5 @@ omni_range = 1.0
 [node name="Rozlet" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-
-[node name="Exploze" type="Node3D" parent="."]
-
-[node name="Jiskry" type="GPUParticles3D" parent="Exploze"]
-emitting = false
-amount = 24
-lifetime = 0.5
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_3urne")
-draw_pass_1 = SubResource("CylinderMesh_up4ou")
-
-[node name="Ohen" type="GPUParticles3D" parent="Exploze"]
-emitting = false
-amount = 12
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_rogao")
-draw_pass_1 = SubResource("SphereMesh_sctpr")
-
-[node name="Kour" type="GPUParticles3D" parent="Exploze"]
-emitting = false
-amount = 12
-lifetime = 2.0
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_no23m")
-draw_pass_1 = SubResource("SphereMesh_d25k6")
 
 [connection signal="timeout" from="Rozlet" to="." method="_zhmotneni"]

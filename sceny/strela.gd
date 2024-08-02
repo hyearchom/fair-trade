@@ -4,7 +4,7 @@ const MAX_VYKON = 0.15
 
 func _ready() -> void:
 	add_to_group('strely')
-	_odkryt_strelu(true)
+	#_odkryt_strelu(true)
 	$Rozlet.start()
 
 func _physics_process(_delta: float) -> void:
@@ -33,14 +33,15 @@ func _zhmotneni() -> void:
 
 
 func detonace() -> void:
-	Signaly.strela_znicena.emit()
-	_odkryt_strelu(false)
-	for efekt: GPUParticles3D in $Exploze.get_children():
-		efekt.emitting = true
-	await $Exploze/Kour.finished
+	Signaly.strela_znicena.emit(global_position)
+	await get_tree().process_frame
+	#_odkryt_strelu(false)
+	#for efekt: GPUParticles3D in $Exploze.get_children():
+		#efekt.emitting = true
+	#await $Exploze/Kour.finished
 	queue_free()
 
 
-func _odkryt_strelu(stav:bool) -> void:
-	for vizual: Node3D in [$Strela, $Zare, $Kour]:
-		vizual.visible = stav
+#func _odkryt_strelu(stav:bool) -> void:
+	#for vizual: Node3D in [$Strela, $Zare, $Kour]:
+		#vizual.visible = stav
