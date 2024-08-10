@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cf8qf27pemdgy"]
-
-[ext_resource type="Script" path="res://instance/komponenty/trasa.gd" id="1_iequ1"]
-
-[node name="Trasa" type="Node"]
-script = ExtResource("1_iequ1")
