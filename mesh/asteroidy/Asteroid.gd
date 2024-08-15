@@ -16,4 +16,3 @@ func _nahodny_vektor() -> Vector3:
 	)
 	vektor = vektor.normalized()
 	return vektor
-

@@ -1,71 +1,116 @@
 extends CharacterBody3D
 
-const MAX_VYKON = 12.0
+const CITLIVOST_MYSI = 0.001
+
+const MAX_rychlost = 12.0
 const ZRYCHLENI = 0.2
 
-var vykon: float
-var zmena_rotace: bool
+var rychlost: float
 var tempomat: bool
 
+var zmena_rotace: bool
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	add_to_group('hrac')
 	Signaly.objeveni_mlhoviny.connect(rozsvitit_svetlomety.bind(true).unbind(1))
 	Signaly.opusteni_mlhoviny.connect(rozsvitit_svetlomety.bind(false))
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		if not $Pohledy.Volny.current:
+			if rychlost:
+				_zamirit_pohled(event)
+		else:
+			$Pohledy._zamirit_pohled(event)
+
+
 func _physics_process(_delta: float) -> void:
-	_nastaveni_smeru_lodi()
-	_pohled_podle_pohybu()
+	#_nastaveni_smeru_lodi()
+	#_pohled_podle_pohybu()
+	#print(volny_pohled)
+	zmena_rotace = Input.is_action_pressed("rotace")
 	
-	vykon = _nastaveni_rychlosti_lodi()
-	_signalizace_pohybu(vykon)
-	if vykon:
-		velocity = -transform.basis.z * vykon
+	rychlost = _nastaveni_rychlosti_lodi()
+	_signalizace_pohybu(rychlost)
+	if rychlost:
+		velocity = -transform.basis.z * rychlost
 	# v případě kolize, funkce pohybu vrací true
 	if move_and_slide():
 		_naraz()
 
+func _zmenit_rotaci(event: InputEvent) -> void:
+	var sirka: float = -event.relative.x *CITLIVOST_MYSI
+	var MEZ: float = 0.025
+	
+	rotate(transform.basis.z, clampf(sirka, -MEZ, MEZ))
+	
+	$Pohledy.navratit_pohled(2)
 
-func _nastaveni_smeru_lodi() -> void:
-	if Input.is_action_pressed("dopredu"):
-		_otocit_lod(Vector3.LEFT, 1)
-	if Input.is_action_pressed("dozadu"):
-		_otocit_lod(Vector3.LEFT, -1)
-	if Input.is_action_pressed("doleva"):
-		_otocit_lod(Vector3.FORWARD, -1)
-	if Input.is_action_pressed("doprava"):
-		_otocit_lod(Vector3.FORWARD, 1)
+
+
+func _zamirit_pohled(event: InputEvent) -> void:
+	var sirka: float = -event.relative.x *CITLIVOST_MYSI
+	var vyska: float = -event.relative.y *CITLIVOST_MYSI
+	var MEZ: float = 0.0125
+	
+	#zastavit_tweeny()
+	if zmena_rotace:
+		rotate(transform.basis.z, clampf(sirka, 2* -MEZ, 2* MEZ))
+	else:
+		rotate(transform.basis.y, clampf(sirka, -MEZ, MEZ))
+		rotate(transform.basis.x, clampf(vyska, -MEZ, MEZ))
+	
+	$Pohledy.navratit_pohled(2)
+
+
+#func _nastaveni_smeru_lodi() -> void:
+	##if Input.is_action_pressed("dopredu"):
+		##_otocit_lod(Vector3.LEFT, 1)
+	##if Input.is_action_pressed("dozadu"):
+		##_otocit_lod(Vector3.LEFT, -1)
+	##zmena_rotace = false
+	#if Input.is_action_pressed("doleva"):
+		#_otocit_lod(Vector3.FORWARD, -1)
+	#if Input.is_action_pressed("doprava"):
+		#_otocit_lod(Vector3.FORWARD, 1)
 
 
 func _otocit_lod(osa:Vector3, smer:int) -> void:
 	var VELIKOST_OTACENI := 0.02
 	rotate_object_local(osa, smer *VELIKOST_OTACENI)
-	zmena_rotace = true
-
+	#$Pohledy/Sledovac.update_rotation = true
+	#$Pohledy/Izolace/Krk/Hlava.rotate_object_local(osa, smer *VELIKOST_OTACENI)
+	#zmena_rotace = true
+	
+	#$Pohledy.navratit_pohled(0.1)
 
 func _nastaveni_rychlosti_lodi() -> float:
 	if Input.is_action_pressed("vpred"):
-		vykon += ZRYCHLENI
+		rychlost += ZRYCHLENI
 		tempomat = false
 	elif Input.is_action_pressed("vzad"):
-		vykon -= ZRYCHLENI
+		rychlost -= ZRYCHLENI
 		tempomat = false
 	elif tempomat:
-		vykon += ZRYCHLENI
+		rychlost += ZRYCHLENI
 	else:
-		var zpomaleni := vykon *0.05
-		vykon -= zpomaleni 
+		if rychlost < 0.01:
+			rychlost = 0.0
+		else:
+			var zpomaleni := rychlost *0.05
+			rychlost -= zpomaleni
 	
-	# omezení vykonu lodi
-	vykon = clampf(vykon, -MAX_VYKON, MAX_VYKON)
-	return vykon
+	# omezení rychlostu lodi
+	rychlost = clampf(rychlost, -MAX_rychlost, MAX_rychlost)
+	return rychlost
 
 
-func _signalizace_pohybu(soucasny_vykon:float) -> void:
-	var pomer_vykonu: float = abs(soucasny_vykon)/MAX_VYKON 
-	$Lod.get_active_material(2).emission_energy_multiplier = pomer_vykonu *2
-	$Vitr.emitting = int(pomer_vykonu)
+func _signalizace_pohybu(soucasny_rychlost:float) -> void:
+	var pomer_rychlostu: float = abs(soucasny_rychlost)/MAX_rychlost 
+	$Lod.get_active_material(2).emission_energy_multiplier = pomer_rychlostu *2
+	$Vitr.emitting = int(pomer_rychlostu)
 
 
 func _pohled_podle_pohybu() -> void:
