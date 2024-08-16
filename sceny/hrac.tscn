@@ -190,6 +190,7 @@ shape = SubResource("ConvexPolygonShape3D_71d51")
 
 [node name="Mireni" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+visible = false
 mesh = SubResource("SphereMesh_nuipe")
 skeleton = NodePath("../Pohledy/Izolace/Krk/Hlava")
 

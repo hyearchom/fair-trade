@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c00vi5dcf0h8s"]
+
+[node name="Cedule" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 100)
+size_flags_horizontal = 8
+
+[node name="Zmizeni" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Odsazeni" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+
+[node name="Sdeleni" type="Label" parent="Odsazeni"]
+layout_mode = 2
+text = "Press something to something"

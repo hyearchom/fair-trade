@@ -14,15 +14,15 @@ float nahoda(float parametr, float mira){
 
 void fragment(){
 	ALBEDO = barva_kapalina;
-	
+
 	for (float i = 0.0; i < 1.0; i += 1.0/(pocet_bublina +1.0)){
-		
+
 		vec2 stred = vec2(UV.x -i, UV.y -1.0 +fract(
 			rychlost_bublina *TIME *nahoda(i,10e2) +nahoda(i,10e2)
 			));
 		float dalka = length(stred);
 		dalka = step(polomer_bublina, dalka);
-			
+
 		if (dalka == 0.0){
 			ALBEDO = barva_bublina;
 		}

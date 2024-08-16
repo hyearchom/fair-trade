@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://35ddx4oy5mo1"]
+[gd_scene load_steps=103 format=3 uid="uid://35ddx4oy5mo1"]
 
 [ext_resource type="Script" path="res://hra.gd" id="1_6150i"]
 [ext_resource type="PackedScene" uid="uid://sr52dyhwqe6" path="res://sceny/hrac.tscn" id="2_4w787"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://bgt8htvihole3" path="res://audio/background-ambient-music-in-lydian-mode.mp3" id="17_r83rk"]
 [ext_resource type="Script" path="res://Zvuky.gd" id="17_unkvl"]
 [ext_resource type="AudioStream" uid="uid://cjufth8e727ls" path="res://audio/thunderbird-game-over.mp3" id="18_7fxnt"]
+[ext_resource type="Script" path="res://Vyuka.gd" id="18_d7cnt"]
 [ext_resource type="PackedScene" uid="uid://c1nsohn1j2ah6" path="res://mesh/asteroidy/velke/velky_slabe_deformovany.tscn" id="18_lykdk"]
 
 [sub_resource type="Gradient" id="Gradient_dgmbg"]
@@ -748,6 +749,7 @@ layer = 2
 script = ExtResource("5_gl8m3")
 
 [node name="Vitezstvi" parent="Info" instance=ExtResource("15_6pecu")]
+visible = false
 
 [node name="Okraje" type="MarginContainer" parent="Info"]
 anchors_preset = 15
@@ -775,6 +777,15 @@ horizontal_alignment = 1
 autowrap_mode = 3
 uppercase = true
 script = ExtResource("13_02mju")
+
+[node name="Vyuka" type="VBoxContainer" parent="Info"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("18_d7cnt")
 
 [node name="Zvuky" type="Node" parent="."]
 script = ExtResource("17_unkvl")
