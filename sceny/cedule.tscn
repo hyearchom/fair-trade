@@ -1,18 +1,39 @@
-[gd_scene format=3 uid="uid://c00vi5dcf0h8s"]
+[gd_scene load_steps=2 format=3 uid="uid://c00vi5dcf0h8s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_51g83"]
+bg_color = Color(0, 0.396078, 0.490196, 1)
+skew = Vector2(-0.5, 0)
+border_color = Color(0.94902, 0.988235, 0.941176, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
 
 [node name="Cedule" type="PanelContainer"]
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(400, 100)
+offset_right = 400.0
+offset_bottom = 100.0
 size_flags_horizontal = 8
-
-[node name="Zmizeni" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-autostart = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_51g83")
 
 [node name="Odsazeni" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 20
 
-[node name="Sdeleni" type="Label" parent="Odsazeni"]
+[node name="Podelne" type="HBoxContainer" parent="Odsazeni"]
 layout_mode = 2
-text = "Press something to something"
+theme_override_constants/separation = 25
+
+[node name="Ovladac" type="TextureRect" parent="Odsazeni/Podelne"]
+unique_name_in_owner = true
+layout_mode = 2
+stretch_mode = 3
+
+[node name="Sdeleni" type="RichTextLabel" parent="Odsazeni/Podelne"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "Press [font_size=30]something[/font_size] to something"
+fit_content = true
+scroll_active = false

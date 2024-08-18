@@ -1,35 +1,45 @@
 extends VBoxContainer
 
 const CEDULE := preload("res://sceny/cedule.tscn")
+const OVLADACE: Dictionary = {
+	'mys': preload("res://grafika/symbol_mys.svg"),
+	'klavesnice': preload("res://grafika/symbol_klavesnice.svg"),
+	'konzole': preload("res://grafika/symbol_konzole.svg")
+}
 
 func _ready() -> void:
-	pass
-	#dat_radu('vpred', 'drzet', 'move forward')
+	#dat_radu('move forward', 'hold', 'test')
+	dat_radu('move forward', 'hold', 'dopredu')
+	#dat_radu("choose ship's direction", 'move mouse')
 
 
-func dat_radu(akce: StringName, druh_akce:StringName, vysledna_cinnost:String,
+func dat_radu(vysledna_cinnost:String, druh_akce:StringName, akce: StringName='',
 		cas_zobrazeni:=float(2)) -> void:
-	var Sdeleni := NodePath('Odsazeni/Sdeleni')
-	var Zmizeni := NodePath('Zmizeni')
+	var Sdeleni := NodePath('%Sdeleni')
+	var Ovladac := NodePath('%Ovladac')
+	var Animace: AnimationPlayer = $Animace
+	var Zmizeni: Timer = $Zmizeni
 	
 	var rada := CEDULE.instantiate()
-	rada.get_node(Sdeleni).text = _ziskat_vyrok(akce, druh_akce, vysledna_cinnost)
+	var vyrok: String
+	vyrok = _ziskat_vyrok(vysledna_cinnost, druh_akce, akce)
+	rada.get_node(Sdeleni).text = vyrok
+	rada.get_node(Ovladac).texture = _ziskat_ikonu(vyrok)
+	
 	add_child(rada)
-	rada.get_node(Zmizeni).start(cas_zobrazeni)
-	await rada.get_node(Zmizeni).timeout
+	Animace.play("prijezd")
+	Zmizeni.start(cas_zobrazeni)
+	await Zmizeni.timeout
+	Animace.play("odjezd")
+	await Animace.animation_finished
 	rada.queue_free()
 
 
-func _ziskat_vyrok(akce: StringName, druh_akce:StringName, vysledna_cinnost:String
+func _ziskat_vyrok(vysledna_cinnost:String, druh_akce:String, akce:StringName, 
 		)-> String:
-	const AKCE: Dictionary = {
-		'stisk': 'Press',
-		'drzet': 'Hold',
-		'pohnout': 'Move',
-	}
-	var vyrok: String = '{0} {1} to {2}'.format([
-		AKCE[druh_akce],
-		_ziskat_klavesu(akce),
+	var vyrok: String = '{0} [b][font_size=30]{1}[/font_size][/b] to {2}'.format([
+		druh_akce.capitalize(),
+		_ziskat_klavesu(akce) if akce else '',
 		vysledna_cinnost])
 	return vyrok
 
@@ -41,3 +51,14 @@ func _ziskat_klavesu(nazev_akce: StringName) -> String:
 	var nazev_klavesy := vypis_klavesy.get_slice('(', 0)
 	nazev_klavesy = nazev_klavesy.strip_edges()
 	return nazev_klavesy
+
+
+func _ziskat_ikonu(akce: String) -> CompressedTexture2D:
+	var ikona: CompressedTexture2D
+	if 'Mouse' in akce:
+		ikona = OVLADACE['mys']
+	elif 'Joypad' in akce:
+		ikona = OVLADACE['konzole']
+	else:
+		ikona = OVLADACE['klavesnice']
+	return ikona
