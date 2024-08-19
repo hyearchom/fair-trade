@@ -7,38 +7,57 @@ const OVLADACE: Dictionary = {
 	'konzole': preload("res://grafika/symbol_konzole.svg")
 }
 
+@onready var Zmizeni: Timer = $Zmizeni
+
+var ocekavana_klavesa: StringName
+
 func _ready() -> void:
-	#dat_radu('move forward', 'hold', 'test')
-	dat_radu('move forward', 'hold', 'dopredu')
-	#dat_radu("choose ship's direction", 'move mouse')
+	spustit_vyuku()
+
+
+func spustit_vyuku() -> void:
+	dat_radu('move forward', 'Hold', 'vpred')
+	await _pauza_mezi_radami()
+	dat_radu("choose ship's direction", 'Move [b]Mouse[/b]', '', 4)
+	await _pauza_mezi_radami()
+	dat_radu('lock maximum speed', 'Press', 'drzet_rychlost')
+	await _pauza_mezi_radami()
+	dat_radu('look around', 'Move [b]Mouse[/b] with holding', 'rozhlednout')
+	await _pauza_mezi_radami(0)
+	await Signaly.objeveni_mlhoviny
+	dat_radu('move backwards', 'Hold', 'vzad')
+	await _pauza_mezi_radami(0)
+	Signaly.emit_signal("vyuka_dokoncena")
+
+
+func _pauza_mezi_radami(cas:=float(2)) -> void:
+	var Pauza: Timer = $Pauza
+	await Zmizeni.timeout
+	Pauza.start(cas)
+	await Pauza.timeout
 
 
 func dat_radu(vysledna_cinnost:String, druh_akce:StringName, akce: StringName='',
-		cas_zobrazeni:=float(2)) -> void:
+		cas_zobrazeni:=float(0)) -> void:
 	var Sdeleni := NodePath('%Sdeleni')
 	var Ovladac := NodePath('%Ovladac')
-	var Animace: AnimationPlayer = $Animace
-	var Zmizeni: Timer = $Zmizeni
 	
 	var rada := CEDULE.instantiate()
 	var vyrok: String
+	ocekavana_klavesa = akce
+	
 	vyrok = _ziskat_vyrok(vysledna_cinnost, druh_akce, akce)
 	rada.get_node(Sdeleni).text = vyrok
 	rada.get_node(Ovladac).texture = _ziskat_ikonu(vyrok)
-	
 	add_child(rada)
-	Animace.play("prijezd")
-	Zmizeni.start(cas_zobrazeni)
-	await Zmizeni.timeout
-	Animace.play("odjezd")
-	await Animace.animation_finished
+	await _zobrazit_radu(cas_zobrazeni)
 	rada.queue_free()
 
 
 func _ziskat_vyrok(vysledna_cinnost:String, druh_akce:String, akce:StringName, 
 		)-> String:
-	var vyrok: String = '{0} [b][font_size=30]{1}[/font_size][/b] to {2}'.format([
-		druh_akce.capitalize(),
+	var vyrok: String = '{0}[b]{1}[/b] to {2}'.format([
+		druh_akce,
 		_ziskat_klavesu(akce) if akce else '',
 		vysledna_cinnost])
 	return vyrok
@@ -50,6 +69,7 @@ func _ziskat_klavesu(nazev_akce: StringName) -> String:
 			.events[0].as_text()
 	var nazev_klavesy := vypis_klavesy.get_slice('(', 0)
 	nazev_klavesy = nazev_klavesy.strip_edges()
+	nazev_klavesy = ' ' + nazev_klavesy
 	return nazev_klavesy
 
 
@@ -62,3 +82,24 @@ func _ziskat_ikonu(akce: String) -> CompressedTexture2D:
 	else:
 		ikona = OVLADACE['klavesnice']
 	return ikona
+
+
+func _zobrazit_radu(cas:float) -> void:
+	var Animace: AnimationPlayer = $Animace
+	
+	if Zmizeni.is_stopped():
+		Animace.play("prijezd")
+		if not cas:
+			Zmizeni.start()
+		else:
+			Zmizeni.start(cas)
+	await Zmizeni.timeout
+	Animace.play("odjezd")
+	await Animace.animation_finished
+
+
+func _input(event: InputEvent) -> void:
+	if ocekavana_klavesa:
+		if event.is_action_pressed(ocekavana_klavesa):
+			Zmizeni.stop()
+			Zmizeni.emit_signal("timeout")

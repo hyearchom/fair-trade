@@ -9,3 +9,4 @@ signal strela_znicena
 signal konec_hry
 signal zacatek_hry
 signal epilog
+signal vyuka_dokoncena

@@ -1,4 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c00vi5dcf0h8s"]
+[gd_scene load_steps=4 format=3 uid="uid://c00vi5dcf0h8s"]
+
+[ext_resource type="FontFile" uid="uid://cedq1s5dq0i2" path="res://grafika/font/Exo2-Light.otf" id="1_bsnim"]
+[ext_resource type="FontFile" uid="uid://dxfdydkwugaji" path="res://grafika/font/Exo2-Bold.otf" id="2_3twe0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_51g83"]
 bg_color = Color(0, 0.396078, 0.490196, 1)
@@ -8,8 +11,8 @@ corner_radius_top_left = 10
 corner_radius_bottom_left = 10
 
 [node name="Cedule" type="PanelContainer"]
-custom_minimum_size = Vector2(400, 100)
-offset_right = 400.0
+custom_minimum_size = Vector2(450, 100)
+offset_right = 500.0
 offset_bottom = 100.0
 size_flags_horizontal = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_51g83")
@@ -17,7 +20,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_51g83")
 [node name="Odsazeni" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 40
 
 [node name="Podelne" type="HBoxContainer" parent="Odsazeni"]
 layout_mode = 2
@@ -33,7 +36,11 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_bsnim")
+theme_override_fonts/bold_font = ExtResource("2_3twe0")
+theme_override_font_sizes/normal_font_size = 21
+theme_override_font_sizes/bold_font_size = 25
 bbcode_enabled = true
-text = "Press [font_size=30]something[/font_size] to something"
+text = "Press [b]something[/b] to something"
 fit_content = true
 scroll_active = false
