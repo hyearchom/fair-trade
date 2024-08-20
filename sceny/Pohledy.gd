@@ -2,30 +2,53 @@ extends Node3D
 
 const CITLIVOST_MYSI = 0.001
 
-@onready var Hrac := owner
-@onready var Hlava := $Izolace/Krk/Hlava
-@onready var Krk := $Izolace/Krk
-@onready var Volny := $Osa/Volny
+var aktivni_pohled: Camera3D
 
-@onready var SEZNAM := [
-	$Izolace/Krk/Hlava,
-	$Busta,
-	$Celo,
-	$Temeno,
-	$Osa/Volny
-]
+@onready var Hrac := owner
+@onready var Krk := $Izolace/Krk
+
+# jednotlivé pohledy
+@onready var Hlava := $Izolace/Krk/Hlava
+@onready var Busta := $Busta
+@onready var Celo := $Celo
+@onready var Temeno := $Temeno
+@onready var Volny := $Osa/Volny
 
 var otoceni_horizontaly: Tween
 var otoceni_vertikaly: Tween
 
+func _ready() -> void:
+	prepnout_kameru(Hlava)
+
+
+func prepnout_kameru(kamera: Camera3D) -> void:
+	if aktivni_pohled:
+		aktivni_pohled.current = false
+	kamera.current = true
+	aktivni_pohled = kamera
+
+
 func _physics_process(_delta: float) -> void:
-	_prepinani_pohledu()
+	_ukazat_volny_pohled()
+
+
+func _ukazat_volny_pohled() -> void:
+	Volny.current = Input.is_action_pressed("rozhlednout")
+	if Input.is_action_just_pressed("rozhlednout"):
+		Volny.quaternion = Quaternion()
+		$Osa.quaternion = Quaternion()
+	elif Input.is_action_just_released("rozhlednout"):
+		aktivni_pohled.current = true
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if Volny.current:
 			_zamirit_pohled(event)
+	elif event is InputEventMouseButton:
+		_manipulace_hlavni_kamery(event)
+	elif event is InputEventKey:
+		_vybrat_kameru(event)
 
 
 func _zamirit_pohled(event: InputEvent) -> void:
@@ -37,6 +60,18 @@ func _zamirit_pohled(event: InputEvent) -> void:
 	Volny.rotate(transform.basis.x, clampf(vyska, -MEZ, MEZ))
 
 
+func _manipulace_hlavni_kamery(event: InputEvent) -> void:
+	#if event.is_action_pressed('navratit_pohled'):
+		#navratit_pohled()
+	if event.is_action_pressed('zvysit_pohled'):
+		_posunout_pohled(Vector3.UP, 1)
+	elif event.is_action_pressed('snizit_pohled'):
+		_posunout_pohled(Vector3.UP, -1)
+	elif event.is_action_pressed('oddalit_pohled'):
+		_posunout_pohled(Vector3.FORWARD, -1)
+	elif event.is_action_pressed('priblizit_pohled'):
+		_posunout_pohled(Vector3.FORWARD, 1)
+
 #func zastavit_tweeny() -> void:
 	#if otoceni_horizontaly:
 		#otoceni_horizontaly.kill()
@@ -44,52 +79,30 @@ func _zamirit_pohled(event: InputEvent) -> void:
 		#otoceni_vertikaly.kill()
 	#printt(otoceni_horizontaly, otoceni_vertikaly)
 
-#
-#func _zvolit_akci(event: InputEvent) -> void:
-	#_prepinani_pohledu(event)
-	#_manipulace_akcni_kamery(event)
-#
-#
-func _prepinani_pohledu() -> void:
-	Volny.current = Input.is_action_pressed("rozhlednout")
-	if Input.is_action_just_pressed("rozhlednout"):
-		Volny.quaternion = Quaternion()
-		$Osa.quaternion = Quaternion()
+
+func _vybrat_kameru(event: InputEvent) -> void:
+	if event.is_action_pressed('pohled_1'):
+		prepnout_kameru(Hlava)
+	elif event.is_action_pressed('pohled_2'):
+		prepnout_kameru(Busta)
+	elif event.is_action_pressed('pohled_3'):
+		prepnout_kameru(Celo)
+	elif event.is_action_pressed('pohled_4'):
+		prepnout_kameru(Temeno)
+
+
+func _posunout_pohled(osa:Vector3, smer:int) -> void:
+	const RYCHLOST_ODDALENI = 0.5
+	match osa:
+		Vector3.FORWARD:
+			Hlava.position.z += smer *RYCHLOST_ODDALENI
+		Vector3.UP:
+			Hlava.position.y += smer *RYCHLOST_ODDALENI
 	
-	## rotace mezi pohledy
-	#if event.is_action_released('zmenit_pohled'):
-		#prepnout_na_dalsi_kameru()
-	## jednotlivé pohledy
-	#elif event.is_action_pressed('pohled_1'):
-		#_vypnout_soucasnou_kameru()
-		#_zapnout_kameru(0)
-	#elif event.is_action_pressed('pohled_2'):
-		#_vypnout_soucasnou_kameru()
-		#_zapnout_kameru(1)
-	#elif event.is_action_pressed('pohled_3'):
-		#_vypnout_soucasnou_kameru()
-		#_zapnout_kameru(2)
-	#elif event.is_action_pressed('pohled_4'):
-		#_vypnout_soucasnou_kameru()
-		#_zapnout_kameru(3)
-	#elif event.is_action_pressed('pohled_5'):
-		#_vypnout_soucasnou_kameru()
-		#_zapnout_kameru(4)
-#
-#
-#func _manipulace_akcni_kamery(event: InputEvent) -> void:
-	#if event.is_action_pressed('navratit_pohled'):
-		#navratit_pohled()
-	#elif event.is_action_pressed('zvysit_pohled'):
-		#_posunout_pohled(Vector3.UP, 1)
-	#elif event.is_action_pressed('snizit_pohled'):
-		#_posunout_pohled(Vector3.UP, -1)
-	#elif event.is_action_pressed('oddalit_pohled'):
-		#_posunout_pohled(Vector3.FORWARD, -1)
-	#elif event.is_action_pressed('priblizit_pohled'):
-		#_posunout_pohled(Vector3.FORWARD, 1)
-#
-#
+	# omezit limitní hodnoty
+	Hlava.position.z = clampf(Hlava.position.z, 3, 15)
+
+
 func navratit_pohled(cas:=1) -> void:
 	otoceni_horizontaly = create_tween() \
 		.set_trans(Tween.TRANS_QUINT) \
@@ -103,59 +116,3 @@ func navratit_pohled(cas:=1) -> void:
 					Hrac.transform.basis.orthonormalized()), cas)
 	otoceni_vertikaly.tween_property(
 			Hlava, 'quaternion', Quaternion(), cas)
-#
-#
-#func _posunout_pohled(osa:Vector3, smer:int) -> void:
-	#const RYCHLOST_ODDALENI = 0.5
-	#match osa:
-		#Vector3.FORWARD:
-			#Hlava.position.z += smer *RYCHLOST_ODDALENI
-		#Vector3.UP:
-			#Hlava.position.y += smer *RYCHLOST_ODDALENI
-	#
-	## omezit limitní hodnoty
-	#Hlava.position.z = clampf(Hlava.position.z, 3, 15)
-#
-#
-#func prepnout_na_dalsi_kameru() -> void:
-	#var poradi_aktivni_kamery: int = _vratit_pozici_kamery()
-	#_vypnout_soucasnou_kameru(poradi_aktivni_kamery)
-	#
-	#poradi_aktivni_kamery = _vratit_dalsi_kameru(poradi_aktivni_kamery)
-	#_zapnout_kameru(poradi_aktivni_kamery)
-#
-#
-#func _vratit_dalsi_kameru(poradi:=-1) -> int:
-	#if poradi == -1:
-		#poradi = _vratit_pozici_kamery()
-		#
-	#if poradi +1 == SEZNAM.size():
-		#poradi = 0
-	#else:
-		#poradi += 1
-	#return poradi
-#
-#
-#func _vypnout_soucasnou_kameru(poradi:=-1) -> void:
-	#if poradi == -1:
-		#poradi = _vratit_pozici_kamery()
-	#
-	#SEZNAM[poradi].current = false
-#
-#
-#func _vratit_pozici_kamery() -> int:
-	#var poradi_kamery := int(0)
-	#for kamera: Camera3D in SEZNAM:
-		#if kamera.current:
-			#return poradi_kamery
-		#else:
-			#poradi_kamery += 1
-	#return -1
-#
-#
-#func _zapnout_kameru(poradi: int) -> void:
-	#if poradi +1 > SEZNAM.size():
-		#push_warning('Není taková kamera')
-		#return
-	#
-	#SEZNAM[poradi].current = true

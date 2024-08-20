@@ -1,17 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://nyho8k0emfnq"]
+[gd_scene load_steps=11 format=3 uid="uid://nyho8k0emfnq"]
 
 [ext_resource type="Script" path="res://sceny/vitezstvi.gd" id="1_wu6m3"]
+[ext_resource type="FontFile" uid="uid://dsns1pj3bu7g4" path="res://grafika/font/Exo2-Black.otf" id="2_hn16b"]
+[ext_resource type="FontFile" uid="uid://cedq1s5dq0i2" path="res://grafika/font/Exo2-Light.otf" id="3_shhjk"]
+[ext_resource type="FontFile" uid="uid://dxfdydkwugaji" path="res://grafika/font/Exo2-Bold.otf" id="4_qx2i7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_46bby"]
 line_spacing = 10.0
-font_size = 60
+font = ExtResource("2_hn16b")
+font_size = 70
 
 [sub_resource type="LabelSettings" id="LabelSettings_7ofix"]
 line_spacing = 10.0
+font = ExtResource("3_shhjk")
 font_size = 40
 
 [sub_resource type="LabelSettings" id="LabelSettings_futiq"]
 line_spacing = 10.0
+font = ExtResource("4_qx2i7")
 font_size = 50
 
 [sub_resource type="Gradient" id="Gradient_5r12r"]
@@ -58,13 +64,13 @@ theme_override_constants/separation = 50
 
 [node name="H1" type="Label" parent="NaStred/Radkovani"]
 layout_mode = 2
-text = "You have stole it all!"
+text = "You have stolen it all!"
 label_settings = SubResource("LabelSettings_46bby")
 horizontal_alignment = 1
 
 [node name="H2" type="Label" parent="NaStred/Radkovani"]
 layout_mode = 2
-text = "Do you wanna sell it for guns?"
+text = "Do you wanna exchange it for guns?"
 label_settings = SubResource("LabelSettings_7ofix")
 horizontal_alignment = 1
 

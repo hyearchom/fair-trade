@@ -5,9 +5,11 @@ var smer := int(1)
 var presun := bool(true)
 
 @onready var Radar: ShapeCast3D = $Hlidka/Radar
+@onready var Kadence: Timer = $Hlidka/Kadence
 
 func _ready() -> void:
 	add_to_group('souperi')
+	Signaly.strela_znicena.connect(Kadence.start.unbind(1))
 
 
 func _physics_process(delta: float) -> void:
@@ -28,6 +30,6 @@ func _overit_smer(postup:float) -> void:
 
 func _detekce_hrace() -> void:
 	if Radar.is_colliding():
-		if not get_tree().get_nodes_in_group('strely'):
+		if not get_tree().get_nodes_in_group('strely') and Kadence.is_stopped():
 			Signaly.vyslani_strely.emit(global_position, global_rotation)
 	presun = not Radar.is_colliding()

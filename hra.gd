@@ -11,7 +11,6 @@ func _ready() -> void:
 	Signaly.konec_hry.connect(_restartovat_hru)
 	_navigovat_dale()
 	Signaly.zacatek_hry.emit()
-	#Signaly.opusteni_mlhoviny.connect(_postup_hrou)
 
 
 func _postup_hrou() -> void:

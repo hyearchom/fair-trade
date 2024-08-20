@@ -10,12 +10,16 @@ const OVLADACE: Dictionary = {
 @onready var Zmizeni: Timer = $Zmizeni
 
 var ocekavana_klavesa: StringName
+var vyuka_dokoncena: bool
 
 func _ready() -> void:
+	Signaly.konec_hry.connect(spustit_vyuku)
 	spustit_vyuku()
 
-
 func spustit_vyuku() -> void:
+	if vyuka_dokoncena:
+		return
+		
 	dat_radu('move forward', 'Hold', 'vpred')
 	await _pauza_mezi_radami()
 	dat_radu("choose ship's direction", 'Move [b]Mouse[/b]', '', 4)
@@ -25,9 +29,11 @@ func spustit_vyuku() -> void:
 	dat_radu('look around', 'Move [b]Mouse[/b] with holding', 'rozhlednout')
 	await _pauza_mezi_radami(0)
 	await Signaly.objeveni_mlhoviny
+	dat_radu('rotate the ship', 'Move [b]Mouse[/b] with holding','rotace')
+	await _pauza_mezi_radami()
 	dat_radu('move backwards', 'Hold', 'vzad')
 	await _pauza_mezi_radami(0)
-	Signaly.emit_signal("vyuka_dokoncena")
+	vyuka_dokoncena = true
 
 
 func _pauza_mezi_radami(cas:=float(2)) -> void:

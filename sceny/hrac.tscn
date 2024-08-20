@@ -208,7 +208,6 @@ update_scale = false
 
 [node name="Hlava" type="Camera3D" parent="Pohledy/Izolace/Krk"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
-current = true
 
 [node name="Celo" type="Camera3D" parent="Pohledy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.392658, -2.0466)
@@ -217,7 +216,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.392658, -2.0466)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02218, 7.10648)
 
 [node name="Temeno" type="Camera3D" parent="Pohledy"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.339284, 1.91955)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.34, 2)
 
 [node name="Osa" type="Node3D" parent="Pohledy"]
 

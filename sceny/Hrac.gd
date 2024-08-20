@@ -27,9 +27,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	#_nastaveni_smeru_lodi()
-	#_pohled_podle_pohybu()
-	#print(volny_pohled)
 	zmena_rotace = Input.is_action_pressed("rotace")
 	
 	rychlost = _nastaveni_rychlosti_lodi()
@@ -55,7 +52,6 @@ func _zamirit_pohled(event: InputEvent) -> void:
 	var vyska: float = -event.relative.y *CITLIVOST_MYSI
 	var MEZ: float = 0.0125
 	
-	#zastavit_tweeny()
 	if zmena_rotace:
 		rotate(transform.basis.z, clampf(sirka, 2* -MEZ, 2* MEZ))
 	else:
@@ -65,26 +61,10 @@ func _zamirit_pohled(event: InputEvent) -> void:
 	$Pohledy.navratit_pohled(2)
 
 
-#func _nastaveni_smeru_lodi() -> void:
-	##if Input.is_action_pressed("dopredu"):
-		##_otocit_lod(Vector3.LEFT, 1)
-	##if Input.is_action_pressed("dozadu"):
-		##_otocit_lod(Vector3.LEFT, -1)
-	##zmena_rotace = false
-	#if Input.is_action_pressed("doleva"):
-		#_otocit_lod(Vector3.FORWARD, -1)
-	#if Input.is_action_pressed("doprava"):
-		#_otocit_lod(Vector3.FORWARD, 1)
-
-
 func _otocit_lod(osa:Vector3, smer:int) -> void:
 	var VELIKOST_OTACENI := 0.02
 	rotate_object_local(osa, smer *VELIKOST_OTACENI)
-	#$Pohledy/Sledovac.update_rotation = true
-	#$Pohledy/Izolace/Krk/Hlava.rotate_object_local(osa, smer *VELIKOST_OTACENI)
-	#zmena_rotace = true
-	
-	#$Pohledy.navratit_pohled(0.1)
+
 
 func _nastaveni_rychlosti_lodi() -> float:
 	if Input.is_action_pressed("vpred"):
